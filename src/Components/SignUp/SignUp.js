@@ -93,7 +93,7 @@ export default function SignUp(props) {
 
     function handleSignUp(event) {
         event.preventDefault()
-        if (!username || !password || !repassword || (password !== repassword) || !name || !email) {
+        if (!username || !password || !repassword || (password !== repassword) || !name || !userID || !role) {
             return;
         }
         props.setIsLoading(true);
@@ -221,14 +221,13 @@ export default function SignUp(props) {
                             <TextField
                                 autoComplete="email"
                                 name="email"
-                                required
                                 type="email"
                                 fullWidth
                                 id="email"
                                 label="Email"
                                 value={email}
-                                error={email === ""}
-                                helperText={email === "" ? 'Enter Email' : ' '}
+                                // error={email === ""}
+                                // helperText={email === "" ? 'Enter Email' : ' '}
                                 onChange={(evt) => handleEmailChange(evt)}
                             />
                             <TextField

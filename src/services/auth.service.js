@@ -91,15 +91,17 @@ class AuthService {
         localStorage.removeItem("user");
     }
 
-    signUp(username, password, name, email) {
+    signUp(username, password, name, email, userID, role) {
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ 
+                userID: userID,
                 username: username,
                 password: password,
                 name: name,
-                email: email
+                email: email,
+                role: role
             })
         };
         return fetch(constant.api + constant.userPath + constant.signUpPath, requestOptions)

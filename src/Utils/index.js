@@ -1,5 +1,4 @@
-//const api = 'https://shrouded-bastion-84248.herokuapp.com';
- const api = 'http://localhost:3030';
+ const api = 'https://classroom-api-18120595.herokuapp.com';
 
 // Class
  const allClassPath = '/classes';
