@@ -1,4 +1,5 @@
- const api = 'https://classroom-api-18120595.herokuapp.com';
+//  const api = 'https://classroom-api-18120595.herokuapp.com';
+const api = 'http://localhost:3030'
 
 // Class
  const allClassPath = '/classes';
@@ -7,6 +8,10 @@
  const userPath = '/users';
  const logInPath = '/logIn';
  const signUpPath = '/signUp';
+ const authGooglePath = '/auth/google'
+const logInWithGoogle = '/logInWithGoogle';
+const authFbPath = '/auth/facebook'
+const logInWithFacebook = '/logInWithFacebook';
 
  function queryParams(params) {
     return Object.keys(params)
@@ -23,6 +28,10 @@ export default {
     userPath,
     logInPath,
     signUpPath,
+    authGooglePath,
+    logInWithGoogle,
+    authFbPath,
+    logInWithFacebook,
     // 
     queryParams
 }

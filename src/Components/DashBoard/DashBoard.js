@@ -17,10 +17,10 @@ import authHeader from '../../services/auth-header';
 import AuthService from '../../services/auth.service';
 
 function Dashboard() {
-    // const history = useHistory();
-    // if (!AuthService.getCurrentUser()) {
-    //     history.push('/logIn');
-    // }
+    const history = useHistory();
+    if (!AuthService.getCurrentUser()) {
+        history.push('/logIn');
+    }
 
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
@@ -31,7 +31,7 @@ function Dashboard() {
             method: 'GET',
             headers: authHeader(),
         };
-        fetch("https://classroom-api-18120595.herokuapp.com/classes", requestOptions)
+        fetch("http://localhost:3030/classes", requestOptions)
             .then(res => res.json())
             .then(
                 (result) => {
@@ -39,7 +39,7 @@ function Dashboard() {
                     setClasses(result);
                 },
                 (error) => {
-                    setIsLoaded(true);
+                    setIsLoaded(false);
                     setError(error);
                 }
             )

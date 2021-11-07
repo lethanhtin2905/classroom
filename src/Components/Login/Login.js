@@ -15,12 +15,41 @@ import {
     Typography
 } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import FacebookIcon from '@material-ui/icons/Facebook';
+import GoogleIcon from '../../vendors/images/google.png';
+
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { makeStyles } from '@material-ui/core/styles';
 
 // Constant && Services
 import AuthService from '../../services/auth.service';
 import constant from '../../Utils/';
 
+const useStyles = makeStyles((theme) => ({
+    googleBtn: {
+      margin: theme.spacing(0, 0, 2, 0),
+      border: '1.5px solid #dd4b39',
+      color: '#dd4b39'
+    },
+    facebookBtn: {
+        margin: theme.spacing(0, 0, 10, 20),
+        left: '87px',
+        border: '1.5px solid #dd4b39',
+        color: '#dd4b39'
+      },
+    googleIcon: {
+      marginRight: '10px'
+    },
+    facebookIcon: {
+      fontSize: '24px !important'
+    },
+    anchor: {
+      textDecoration: 'none',
+      '&:hover': {
+        textDecoration: 'none'
+      }
+    }
+  }));
 const theme = createTheme();
 
 export default function Login(props) {
@@ -31,6 +60,7 @@ export default function Login(props) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [errorMsg, setErrMsg] = useState('');
+    const classes = useStyles();
 
     function handleUsernameChange(evt) {
         setUsername(evt.target.value);
@@ -46,7 +76,7 @@ export default function Login(props) {
             return;
         }
         props.setIsLoading(true);
-        const fetch = AuthService.logIn(username, password).then(result => {
+        AuthService.logIn(username, password).then(result => {
             if (result.isSuccess) {
                 history.push('/dashboard');
             } else {
@@ -61,6 +91,8 @@ export default function Login(props) {
             }
         });
     };
+
+    
 
     return (
         <ThemeProvider theme={theme}>
@@ -127,18 +159,6 @@ export default function Login(props) {
                                 helperText={password === "" ? 'Enter password' : ' '}
                                 onChange={(evt) => handlePasswordChange(evt)}
                             />
-                            <FormControlLabel
-                                control={<Checkbox value="remember" color="primary" />}
-                                label="Remember me"
-                            />
-                            <Button
-                                type="submit"
-                                fullWidth
-                                variant="contained"
-                                sx={{ mt: 3, mb: 2 }}
-                            >
-                                Sign In
-                            </Button>
                             <Grid container>
                                 <Grid item xs>
                                     <Link href="#" variant="body2">
@@ -151,6 +171,40 @@ export default function Login(props) {
                                     </Link>
                                 </Grid>
                             </Grid>
+                            {/* <FormControlLabel
+                                control={<Checkbox value="remember" color="primary" />}
+                                label="Remember me"
+                            /> */}
+                            <Button
+                                type="submit"
+                                fullWidth
+                                variant="contained"
+                                sx={{ mt: 3, mb: 2 }}
+                            >
+                                Sign In
+                            </Button>
+                        
+                            <a href={constant.api + constant.userPath + constant.authGooglePath} className={classes.anchor}>
+                                <Button
+                                    variant="outlined" color="secondary"
+                                    className={classes.googleBtn}
+                                >
+                                    <img src={GoogleIcon} className={classes.googleIcon} />
+                                    Sign In With google
+                                </Button>
+                            </a>
+                            
+                            <a href={constant.api + constant.userPath + constant.authFbPath} className={classes.anchor}>
+                                <Button
+                                    variant="contained"
+                                    color="primary"
+                                    className={classes.facebookBtn}
+                                    startIcon={<FacebookIcon className={classes.facebookIcon} />}
+                                >
+                                    Sign In With Facebook
+                                </Button>
+                            </a>
+                            
                         </Box>
                     </Box>
                 </Grid>
