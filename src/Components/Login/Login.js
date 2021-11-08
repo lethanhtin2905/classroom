@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useState } from 'react';
-import { useHistory } from "react-router-dom";
+import { useHistory, Redirect } from "react-router-dom";
 import {
     Avatar,
     Button,
@@ -78,6 +78,7 @@ export default function Login(props) {
         props.setIsLoading(true);
         AuthService.logIn(username, password).then(result => {
             if (result.isSuccess) {
+                // return <Redirect to='/dashboard'/>
                 history.push('/dashboard');
             } else {
                 setUsername("");
@@ -91,8 +92,6 @@ export default function Login(props) {
             }
         });
     };
-
-    
 
     return (
         <ThemeProvider theme={theme}>

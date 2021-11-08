@@ -58,14 +58,14 @@ class AuthService {
             })
     }
 
-    logInWithFacebook(facebookID) {
+    logInWithFacebook() {
         const requestOptions = {
             method: 'POST',
             headers: { 
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({ 
-                facebookID: facebookID
+                facebookID: '3075115486097843'
             })
         };
         return fetch(constant.api + constant.userPath + constant.logInWithFacebook, requestOptions)

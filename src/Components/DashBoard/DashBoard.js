@@ -16,14 +16,14 @@ import {
 import authHeader from '../../services/auth-header';
 import AuthService from '../../services/auth.service';
 
-function Dashboard() {
+function Dashboard(props) {
     const history = useHistory();
     if (!AuthService.getCurrentUser()) {
         history.push('/logIn');
     }
 
-    const [error, setError] = useState(null);
-    const [isLoaded, setIsLoaded] = useState(false);
+    // const [error, setError] = useState(null);
+    // const [isLoaded, setIsLoaded] = useState(false);
     const [classes, setClasses] = useState([]);
 
     useEffect(() => {
@@ -35,15 +35,18 @@ function Dashboard() {
             .then(res => res.json())
             .then(
                 (result) => {
-                    setIsLoaded(true);
                     setClasses(result);
+                    props.setIsLoading(false);
                 },
                 (error) => {
-                    setIsLoaded(false);
-                    setError(error);
+                    props.setIsLoading(false)
                 }
             )
-    }, [classes])
+
+        return () => {
+            
+        }
+    }, [])
 
     return (
         <Box sx={{ flexGrow: 1 }} className='box'>

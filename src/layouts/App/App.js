@@ -16,6 +16,7 @@ import DashBoard from '../../Components/DashBoard/DashBoard';
 import LogIn from '../../Components/Login/Login';
 import SignUp from '../../Components/SignUp/SignUp';
 import Loading from '../Loading';
+import Redirecting from '../../Components/Redirecting';
 
 function App() {
 	const [isLoading, setIsLoading] = useState(false);
@@ -39,6 +40,9 @@ function App() {
 					</Route>
 					<Route path="/">
 						<Redirect to="/dashboard" />
+					</Route>
+					<Route path="/redirect/:authType/:ID">
+						<Redirecting />
 					</Route>
 				</Switch>
 			</Router>
