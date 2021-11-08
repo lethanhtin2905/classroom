@@ -58,17 +58,17 @@ class AuthService {
             })
     }
 
-    logInWithFacebook() {
+    logInWithFacebook(facebookID) {
         const requestOptions = {
             method: 'POST',
             headers: { 
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({ 
-                facebookID: '3075115486097843'
+                facebookID: facebookID,
             })
         };
-        return fetch(constant.api + constant.userPath + constant.logInWithFacebook, requestOptions)
+        return fetch('http://localhost:3030/users/logInWithFacebook', requestOptions)
             .then(response => response.json())
             .then(result => {
                 if (result.isSuccess){

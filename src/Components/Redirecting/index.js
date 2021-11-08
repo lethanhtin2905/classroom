@@ -4,11 +4,11 @@ import { useParams, useHistory } from "react-router-dom";
 // Service
 import AuthService from '../../services/auth.service';
 
-function Redirecting(props) {
+function Redirecting() {
     const { authType, ID } = useParams();
     const history = useHistory();
     useEffect(() => {
-        if (authType == 'google') {
+        if (authType === 'google') {
             AuthService.logInWithGoogle(ID).then(result => {
                 if (result.isSuccess) {
                     history.push('/dashboard');
@@ -21,9 +21,9 @@ function Redirecting(props) {
                     console.log(error)
                     history.push('/logIn');
                 }
-            });;
-        } else if (authType == 'facebook') {
-            AuthService.logInWithFacebook().then(result => {
+            })
+        } else if (authType === 'facebook') {
+            AuthService.logInWithFacebook(ID).then(result => {
                 if (result.isSuccess) {
                     history.push('/dashboard');
                 } else {
@@ -35,14 +35,14 @@ function Redirecting(props) {
                     console.log(error)
                     history.push('/logIn');
                 }
-            });;
+            })
         }
     })
 
     return (
-        <main>
+        <div>
             Redirecting...
-        </main>
+        </div>
     );
 }
 

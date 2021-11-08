@@ -17,6 +17,8 @@ import LogIn from '../../Components/Login/Login';
 import SignUp from '../../Components/SignUp/SignUp';
 import Loading from '../Loading';
 import Redirecting from '../../Components/Redirecting';
+// import {createHashHistory} from 'history';
+// const hashHistory = createHashHistory({ basename: "" });
 
 function App() {
 	const [isLoading, setIsLoading] = useState(false);
