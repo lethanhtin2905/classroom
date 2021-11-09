@@ -1,12 +1,12 @@
 import constant from '../Utils';
 
 class AuthService {
-    logIn(username, password) {
+    logIn(email, password) {
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ 
-                username: username,
+                email: email,
                 password: password
             })
         };
@@ -29,14 +29,14 @@ class AuthService {
             })
     }
 
-    logInWithGoogle(googleID) {
+    logInWithGoogle(tokenID) {
         const requestOptions = {
             method: 'POST',
             headers: { 
                 'Content-Type': 'application/json' ,
             },
             body: JSON.stringify({ 
-                googleID: googleID
+                tokenID: tokenID
             })
         };
         return fetch(constant.api + constant.userPath + constant.logInWithGoogle, requestOptions)
@@ -91,17 +91,16 @@ class AuthService {
         localStorage.removeItem("user");
     }
 
-    signUp(username, password, name, email, userID, role) {
+    signUp(username, email, password, name, userID) {
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ 
-                userID: userID,
                 username: username,
+                email: email,
                 password: password,
                 name: name,
-                email: email,
-                role: role
+                userID: userID,
             })
         };
         return fetch(constant.api + constant.userPath + constant.signUpPath, requestOptions)

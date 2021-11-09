@@ -16,6 +16,7 @@ import {
 } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import FacebookIcon from '@material-ui/icons/Facebook';
+import { GoogleLogin } from 'react-google-login';
 import GoogleIcon from '../../vendors/images/google.png';
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -27,29 +28,29 @@ import constant from '../../Utils/';
 
 const useStyles = makeStyles((theme) => ({
     googleBtn: {
-      margin: theme.spacing(0, 0, 2, 0),
-      border: '1.5px solid #dd4b39',
-      color: '#dd4b39'
+        margin: theme.spacing(0, 0, 2, 0),
+        border: '1.5px solid #dd4b39',
+        color: '#dd4b39'
     },
     facebookBtn: {
         margin: theme.spacing(0, 0, 10, 20),
         left: '87px',
         border: '1.5px solid #dd4b39',
         color: '#dd4b39'
-      },
+    },
     googleIcon: {
-      marginRight: '10px'
+        marginRight: '10px'
     },
     facebookIcon: {
-      fontSize: '24px !important'
+        fontSize: '24px !important'
     },
     anchor: {
-      textDecoration: 'none',
-      '&:hover': {
-        textDecoration: 'none'
-      }
+        textDecoration: 'none',
+        '&:hover': {
+            textDecoration: 'none'
+        }
     }
-  }));
+}));
 const theme = createTheme();
 
 export default function Login(props) {
@@ -92,6 +93,25 @@ export default function Login(props) {
             }
         });
     };
+
+    const responseGoogle = (response) => {
+        console.log(response)
+        props.setIsLoading(true);
+        AuthService.logInWithGoogle(response.tokenID).then(result => {
+            if (result.isSuccess) {
+                history.push('/dashboard');
+            } else {
+                setUsername("");
+                setPassword("");
+                setErrMsg(result.message);
+            }
+            props.setIsLoading(false);
+        }, (error) => {
+            if (error) {
+                props.setIsLoading(false);
+            }
+        });
+    }
 
     return (
         <ThemeProvider theme={theme}>
@@ -182,8 +202,8 @@ export default function Login(props) {
                             >
                                 Sign In
                             </Button>
-                        
-                            <a href={constant.api + constant.userPath + constant.authGooglePath} className={classes.anchor}>
+
+                            {/* <a href={constant.api + constant.userPath + constant.authGooglePath} className={classes.anchor}>
                                 <Button
                                     variant="outlined" color="secondary"
                                     className={classes.googleBtn}
@@ -202,8 +222,22 @@ export default function Login(props) {
                                 >
                                     Sign In With Facebook
                                 </Button>
-                            </a>
-                            
+                            </a> */}
+                            <GoogleLogin
+                                clientId="456562452797-8l37bdgcv5uuacglkgjpkobpvs6nelli.apps.googleusercontent.com"
+                                buttonText="SIGN IN WITH GOOGLE"
+                                onSuccess={responseGoogle}
+                                onFailure={responseGoogle}
+                                cookiePolicy={'single_host_origin'}
+                            />,
+                            <GoogleLogin
+                                clientId="456562452797-8l37bdgcv5uuacglkgjpkobpvs6nelli.apps.googleusercontent.com"
+                                buttonText="SIGN IN WITH FACEBOOK"
+                                onSuccess={responseGoogle}
+                                onFailure={responseGoogle}
+                                cookiePolicy={'single_host_origin'}
+                            />,
+
                         </Box>
                     </Box>
                 </Grid>

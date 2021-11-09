@@ -57,13 +57,13 @@ export default function SignUp(props) {
         history.push('/dashboard');
     }
     const classes = useStyles();
+
     const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [userID, setUserID] = useState('');
     const [repassword, setRePassword] = useState('');
     const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [role, setRole] = useState('');
+    const [userID, setUserID] = useState('');
     const [isSuccess, setIsSuccess] = useState(true);
     const [errorMsg, setErrMsg] = useState('');
 
@@ -84,20 +84,18 @@ export default function SignUp(props) {
     function handleNameChange(evt) {
         setName(evt.target.value);
     }
-    function handleRoleChange(evt) {
-        setRole(evt.target.value);
-    }
     function handleEmailChange(evt) {
         setEmail(evt.target.value);
     }
 
     function handleSignUp(event) {
         event.preventDefault()
-        if (!username || !password || !repassword || (password !== repassword) || !name || !userID || !role) {
+        if (!username || !email || !password || !repassword || (password !== repassword) || !name) {
             return;
         }
         props.setIsLoading(true);
-        const fetch = AuthService.signUp(username, password, name, email, userID, role).then(result => {
+        AuthService.signUp(username, email, password, name, userID).then(result => {
+            console.log(result)
             if (result.isSuccess) {
                 history.push('/logIn');
             } else {
@@ -151,14 +149,13 @@ export default function SignUp(props) {
 
                         <Box component="form" noValidate onSubmit={(e) => handleSignUp(e)} sx={{ mt: 1 }}>
                             <TextField
-                                margin="normal"
+                                autoComplete="username"
                                 required
+                                name="username"
+                                type="username"
                                 fullWidth
                                 id="username"
                                 label="User name"
-                                name="username"
-                                autoComplete="Username"
-                                autoFocus
                                 value={username}
                                 error={username === ""}
                                 helperText={username === "" ? 'Enter Username' : ' '}
@@ -194,19 +191,6 @@ export default function SignUp(props) {
                             />
                             <TextField
                                 margin="normal"
-                                autoComplete="userID"
-                                name="userID"
-                                required
-                                fullWidth
-                                id="userID"
-                                label="userID"
-                                value={userID}
-                                error={userID === ""}
-                                helperText={userID === "" ? 'Enter user ID' : ' '}
-                                onChange={(evt) => handleUserIDChange(evt)}
-                            />
-                            <TextField
-                                margin="normal"
                                 autoComplete="fullName"
                                 name="fullName"
                                 required
@@ -220,28 +204,28 @@ export default function SignUp(props) {
                             />
                             <TextField
                                 autoComplete="email"
+                                required
                                 name="email"
                                 type="email"
                                 fullWidth
                                 id="email"
                                 label="Email"
                                 value={email}
-                                // error={email === ""}
-                                // helperText={email === "" ? 'Enter Email' : ' '}
+                                error={email === ""}
+                                helperText={email === "" ? 'Enter Email' : ' '}
                                 onChange={(evt) => handleEmailChange(evt)}
                             />
                             <TextField
                                 margin="normal"
-                                autoComplete="role"
-                                name="role"
-                                required
+                                autoComplete="userID"
+                                name="userID"
                                 fullWidth
-                                id="role"
-                                label="Teacher/Student"
-                                value={role}
-                                error={role === ""}
-                                helperText={role === "" ? 'Enter you role' : ' '}
-                                onChange={(evt) => handleRoleChange(evt)}
+                                id="userID"
+                                label="userID"
+                                value={userID}
+                                // error={userID === ""}
+                                // helperText={userID === "" ? 'Enter user ID' : ' '}
+                                onChange={(evt) => handleUserIDChange(evt)}
                             />
                             <FormHelperText className={(isSuccess) ? classes.formMessageSuccess : classes.formMessageFail} error={!isSuccess}>
                                 {errorMsg}

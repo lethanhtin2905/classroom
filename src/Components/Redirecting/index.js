@@ -4,7 +4,7 @@ import { useParams, useHistory } from "react-router-dom";
 // Service
 import AuthService from '../../services/auth.service';
 
-function Redirecting() {
+export default function Redirecting() {
     const { authType, ID } = useParams();
     const history = useHistory();
     useEffect(() => {
@@ -45,5 +45,3 @@ function Redirecting() {
         </div>
     );
 }
-
-export default Redirecting;
