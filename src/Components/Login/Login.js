@@ -15,9 +15,7 @@ import {
     Typography
 } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import FacebookIcon from '@material-ui/icons/Facebook';
 import { GoogleLogin } from 'react-google-login';
-import GoogleIcon from '../../vendors/images/google.png';
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { makeStyles } from '@material-ui/core/styles';
@@ -97,7 +95,7 @@ export default function Login(props) {
     const responseGoogle = (response) => {
         console.log(response)
         props.setIsLoading(true);
-        AuthService.logInWithGoogle(response.tokenID).then(result => {
+        AuthService.logInWithGoogle(response.tokenId).then(result => {
             if (result.isSuccess) {
                 history.push('/dashboard');
             } else {
