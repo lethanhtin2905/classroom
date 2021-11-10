@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import './Header.css';
 import { styled, alpha } from "@mui/material/styles";
 import { Link } from 'react-router-dom'
+import AuthService from '../../services/auth.service';
 import {
     AppBar, Box,
     Toolbar,
@@ -14,8 +15,8 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
-import AccountCircle from "@mui/icons-material/AccountCircle";
 import MenuActClass from '../../Components/ActClassMenu/MenuActClass'
+import ProfileMenu from '../../Components/ProfileMenu/ProfileMenu'
 
 const useStyles = makeStyles((theme) => ({
     logo: {
@@ -134,7 +135,7 @@ export default function Header() {
                             GradeBook
                         </Link>
                     </Typography>
-                    <Search>
+                    {/* <Search>
                         <SearchIconWrapper>
                             <SearchIcon />
                         </SearchIconWrapper>
@@ -142,28 +143,19 @@ export default function Header() {
                             placeholder="Search…"
                             inputProps={{ "aria-label": "search" }}
                         />
-                    </Search>
+                    </Search> */}
                     <Box sx={{ flexGrow: 1 }} />
                     <Box sx={{ display: { xs: "none", md: "flex" } }}>
-
-                        <MenuActClass></MenuActClass>
-
-                        <IconButton
-                            size="large"
-                            edge="end"
-                            aria-label="account of current user"
-                            aria-controls={menuId}
-                            aria-haspopup="true"
-                            onClick={handleProfileMenuOpen}
-                            color="inherit"
-                            className="icon"
-                        >
-                            <AccountCircle />
-                        </IconButton>
+                        <span className= "userName">Hello {AuthService.getCurrentUser().name}</span>
+                        <div className="menuClassBtn">
+                            <MenuActClass ></MenuActClass>
+                        </div>
+                        <div className="menuProfileBtn">
+                            <ProfileMenu ></ProfileMenu>
+                        </div>
                     </Box>
                 </Toolbar>
             </AppBar>
-            {renderProfileMenu}
         </Box>
     );
 }

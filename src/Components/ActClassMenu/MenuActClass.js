@@ -1,4 +1,5 @@
 import * as React from 'react';
+import './MenuActClass.css'
 import {
     Button,
     MenuItem,
@@ -159,7 +160,7 @@ export default function MenuActClass() {
 
     return (
         <div>
-            <IconButton
+            <IconButton className="BtnActClass"
                 size="large"
                 edge="end"
                 aria-label="account of current user"

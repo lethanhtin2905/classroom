@@ -26,31 +26,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import AuthService from '../../services/auth.service';
 import constant from '../../Utils/';
 
-const useStyles = makeStyles((theme) => ({
-    googleBtn: {
-        margin: theme.spacing(0, 0, 2, 0),
-        border: '1.5px solid #dd4b39',
-        color: '#dd4b39'
-    },
-    facebookBtn: {
-        margin: theme.spacing(0, 0, 10, 20),
-        left: '100px !important',
-        border: '1.5px solid #dd4b39',
-        color: '#dd4b39'
-    },
-    googleIcon: {
-        marginRight: '10px'
-    },
-    facebookIcon: {
-        fontSize: '24px !important'
-    },
-    anchor: {
-        textDecoration: 'none',
-        '&:hover': {
-            textDecoration: 'none'
-        }
-    }
-}));
 const theme = createTheme();
 
 export default function Login(props) {
@@ -61,7 +36,6 @@ export default function Login(props) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [errorMsg, setErrMsg] = useState('');
-    const classes = useStyles();
 
     function handleUsernameChange(evt) {
         setUsername(evt.target.value);
@@ -162,7 +136,7 @@ export default function Login(props) {
                         </Avatar>
 
                         <Typography component="h1" variant="h5">
-                            Sign in
+                           SIGN IN
                         </Typography>
 
                         <Box component="form" noValidate onSubmit={(e) => handleLogIn(e)} sx={{ mt: 1 }}>
@@ -216,16 +190,17 @@ export default function Login(props) {
                                 variant="contained"
                                 sx={{ mt: 3, mb: 2 }}
                             >
-                                Sign In
+                                LOGIN
                             </Button>
                             <GoogleLogin
                                 clientId="456562452797-8l37bdgcv5uuacglkgjpkobpvs6nelli.apps.googleusercontent.com"
-                                buttonText="SIGN IN WITH GOOGLE"
+                                buttonText="LOGIN WITH GOOGLE"
                                 onSuccess={responseGoogle}
                                 onFailure={responseGoogle}
                                 cookiePolicy={'single_host_origin'}
                             />,
                             <FacebookLogin
+                                className="facebook"
                                 appId="1049530302499866"
                                 autoLoad={false}
                                 // onClick={componentClicked}
