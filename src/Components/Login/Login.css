@@ -1,0 +1,18 @@
+.facebookBtn {
+  margin-left: 95 px !important;
+  padding-left: 20 px !important;
+  padding-top: 10 px !important;
+  padding-bottom: 10 px !important;
+  padding-right: 20 px !important;
+  border-right-width: 0 px !important;
+}
+
+.kep-login-facebook.metro {
+    border-radius: 0;
+    margin-left: 95 px ;
+    padding-left: 20 px ;
+    padding-top: 10 px ;
+    padding-bottom: 10 px ;
+    padding-right: 20 px ;
+    border-right-width: 0 px ;
+}

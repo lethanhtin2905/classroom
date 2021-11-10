@@ -25,7 +25,7 @@ function App() {
 	return (
 		<React.Fragment>
 			<CssBaseline />
-			<Loading loading={isLoading} />
+			{/* <Loading loading={isLoading} /> */}
 			<Router>
 				<Switch>
 					<Route path="/logIn">

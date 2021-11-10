@@ -1,4 +1,5 @@
 import * as React from 'react';
+import './Login.css'
 import { useState } from 'react';
 import { useHistory, Redirect } from "react-router-dom";
 import {
@@ -16,6 +17,7 @@ import {
 } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { GoogleLogin } from 'react-google-login';
+import FacebookLogin from 'react-facebook-login';
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { makeStyles } from '@material-ui/core/styles';
@@ -32,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
     },
     facebookBtn: {
         margin: theme.spacing(0, 0, 10, 20),
-        left: '87px',
+        left: '100px !important',
         border: '1.5px solid #dd4b39',
         color: '#dd4b39'
     },
@@ -77,7 +79,6 @@ export default function Login(props) {
         props.setIsLoading(true);
         AuthService.logIn(username, password).then(result => {
             if (result.isSuccess) {
-                // return <Redirect to='/dashboard'/>
                 history.push('/dashboard');
             } else {
                 setUsername("");
@@ -93,9 +94,26 @@ export default function Login(props) {
     };
 
     const responseGoogle = (response) => {
-        console.log(response)
         props.setIsLoading(true);
         AuthService.logInWithGoogle(response.tokenId).then(result => {
+            if (result.isSuccess) {
+                history.push('/dashboard');
+            } else {
+                setUsername("");
+                setPassword("");
+                setErrMsg(result.message);
+            }
+            props.setIsLoading(false);
+        }, (error) => {
+            if (error) {
+                props.setIsLoading(false);
+            }
+        });
+    }
+
+    const responseFacebook = (response) => {
+        props.setIsLoading(true);
+        AuthService.logInWithFacebook(response.accessToken, response.userID).then(result => {
             if (result.isSuccess) {
                 history.push('/dashboard');
             } else {
@@ -200,27 +218,6 @@ export default function Login(props) {
                             >
                                 Sign In
                             </Button>
-
-                            {/* <a href={constant.api + constant.userPath + constant.authGooglePath} className={classes.anchor}>
-                                <Button
-                                    variant="outlined" color="secondary"
-                                    className={classes.googleBtn}
-                                >
-                                    <img src={GoogleIcon} className={classes.googleIcon} />
-                                    Sign In With google
-                                </Button>
-                            </a>
-                            
-                            <a href={constant.api + constant.userPath + constant.authFbPath} className={classes.anchor}>
-                                <Button
-                                    variant="contained"
-                                    color="primary"
-                                    className={classes.facebookBtn}
-                                    startIcon={<FacebookIcon className={classes.facebookIcon} />}
-                                >
-                                    Sign In With Facebook
-                                </Button>
-                            </a> */}
                             <GoogleLogin
                                 clientId="456562452797-8l37bdgcv5uuacglkgjpkobpvs6nelli.apps.googleusercontent.com"
                                 buttonText="SIGN IN WITH GOOGLE"
@@ -228,13 +225,13 @@ export default function Login(props) {
                                 onFailure={responseGoogle}
                                 cookiePolicy={'single_host_origin'}
                             />,
-                            <GoogleLogin
-                                clientId="456562452797-8l37bdgcv5uuacglkgjpkobpvs6nelli.apps.googleusercontent.com"
-                                buttonText="SIGN IN WITH FACEBOOK"
-                                onSuccess={responseGoogle}
-                                onFailure={responseGoogle}
-                                cookiePolicy={'single_host_origin'}
-                            />,
+                            <FacebookLogin
+                                appId="1049530302499866"
+                                autoLoad={false}
+                                // onClick={componentClicked}
+                                callback={responseFacebook}
+                            />
+
 
                         </Box>
                     </Box>
