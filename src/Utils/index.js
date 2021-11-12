@@ -12,6 +12,7 @@ const api = 'http://localhost:3030'
 const logInWithGoogle = '/logInWithGoogle';
 const authFbPath = '/auth/facebook'
 const logInWithFacebook = '/logInWithFacebook';
+const updateProfilePath='/updateProfile'
 
  function queryParams(params) {
     return Object.keys(params)
@@ -32,6 +33,7 @@ export default {
     logInWithGoogle,
     authFbPath,
     logInWithFacebook,
+    updateProfilePath,
     // 
     queryParams
 }

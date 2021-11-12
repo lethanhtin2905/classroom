@@ -119,11 +119,11 @@ class AuthService {
         return JSON.parse(localStorage.getItem('user'));
     }
 
-    // updateCurrentUser(newUser){
-    //     const user = Object.assign({}, JSON.parse(localStorage.getItem('user')), newUser);
-    //     localStorage.removeItem("user");
-    //     localStorage.setItem("user", JSON.stringify(user));
-    // }
+    updateCurrentUser(newUser){
+        const user = Object.assign({}, JSON.parse(localStorage.getItem('user')), newUser);
+        localStorage.removeItem("user");
+        localStorage.setItem("user", JSON.stringify(user));
+    }
   }
   
   export default new AuthService();

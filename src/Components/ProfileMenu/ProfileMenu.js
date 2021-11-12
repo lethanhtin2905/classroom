@@ -16,6 +16,8 @@ import {
 } from '@mui/material';
 
 import AccountCircle from "@mui/icons-material/AccountCircle";
+import authHeader from '../../services/auth-header';
+import constant from '../../Utils/index'
 
 export default function ProfileMenu() {
     const history = useHistory();
@@ -24,10 +26,9 @@ export default function ProfileMenu() {
         history.push('/logIn');
     }
     const [open, setOpen] = React.useState(false);
-    const [className, setClassName] = React.useState('');
-    const [classID, setClassID] = React.useState('');
-    const [desc, setDesc] = React.useState('');
-    const [teacher, setTeacher] = React.useState('');
+    const [name, setName] = React.useState(user.name);
+    const [email, setEmail] = React.useState(user.email);
+    const [studentId, setStudentId] = React.useState(user.userID);
     const [actClass, setActClass] = React.useState(null);
 
     const isMenuActClassOpen = Boolean(actClass);
@@ -56,41 +57,44 @@ export default function ProfileMenu() {
         history.push('/logIn');
     }
 
-    const handleUpdate = () => {
-        const data = {
-            classID: classID,
-            className: className,
-            desc: desc,
-            teacher: teacher,
-        }
-        fetch('http://localhost:3030/classes', {
+    const handleUpdate = (event) => {
+        event.preventDefault()
+        const requestOptions = {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-        })
-            .then(response => response.json())
-            .then(data => {
-                alert("Update successful");
+            headers: Object.assign({
+                'Content-Type': 'application/json'
+            }, authHeader()),
+            body: JSON.stringify({
+                name: name,
+                email: email,
             })
-            .catch((error) => {
-                console.error('Error:', error);
-            });
-        handleClose();
-
+        };
+        return fetch(constant.api + constant.userPath + constant.updateProfilePath, requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                if (result.isSuccess) {
+                    AuthService.updateCurrentUser({
+                        name: name,
+                        email: email,
+                        studentId: studentId
+                    })
+                }
+            }, (error) => {
+                if (error) {
+                }
+            })
     }
-
-    const onChangeCode = (e) => {
-        setClassID(e.target.value)
-    }
-
+    
     const onChangeName = (e) => {
-        setClassName(e.target.value)
+        setName(e.target.value)
     }
 
-    const onChangeDesc = (e) => {
-        setDesc(e.target.value)
+    const onChangeEmail = (e) => {
+        setEmail(e.target.value)
+    }
+
+    const onChangeStudentId = (e) => {
+        setStudentId(e.target.value)
     }
 
     const menuId = "primary-search-account-menu";
@@ -125,29 +129,32 @@ export default function ProfileMenu() {
                             required={true}
                             margin="dense"
                             id="name"
-                            label="Mã lớp học"
+                            label="Full Name"
                             type="name"
-                            fullWidth
-                            variant="standard"
-                            onChange={onChangeCode}
-                        />
-                        <TextField
-                            margin="dense"
-                            id="name"
-                            label="Tên lớp học"
-                            type="name"
+                            value={name}
                             fullWidth
                             variant="standard"
                             onChange={onChangeName}
                         />
                         <TextField
                             margin="dense"
-                            id="name"
-                            label="Mô tả"
+                            id="email"
+                            label="Email"
                             type="email"
+                            value={email}
                             fullWidth
                             variant="standard"
-                            onChange={onChangeDesc}
+                            onChange={onChangeEmail}
+                        />
+                        <TextField
+                            margin="dense"
+                            id="studentId"
+                            label="Student ID"
+                            type="studentId"
+                            value={studentId}
+                            fullWidth
+                            variant="standard"
+                            onChange={onChangeStudentId}
                         />
                     </DialogContent>
                     <DialogActions>
