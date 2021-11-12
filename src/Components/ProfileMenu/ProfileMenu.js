@@ -50,6 +50,12 @@ export default function ProfileMenu() {
         handleMenuClose();
     };
 
+    const handleLogOut = () => {
+        AuthService.logOut();
+        handleClose();
+        history.push('/logIn');
+    }
+
     const handleUpdate = () => {
         const data = {
             classID: classID,
@@ -106,8 +112,8 @@ export default function ProfileMenu() {
                 onClose={handleMenuClose}
             >
                 <div >
-                    <MenuItem onClick={handleOpenAddClass}>Log Out</MenuItem>
-                    <MenuItem onClick={handleMenuClose}>About You</MenuItem>
+                    <MenuItem onClick={handleOpenAddClass}>Your Profile</MenuItem>
+                    <MenuItem onClick={handleLogOut}>Log Out</MenuItem>
                 </div>
                 <Dialog open={open} onClose={handleClose}>
                     <DialogTitle>YOUR PROFILE</DialogTitle>

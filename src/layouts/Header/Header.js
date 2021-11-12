@@ -146,7 +146,7 @@ export default function Header() {
                     </Search> */}
                     <Box sx={{ flexGrow: 1 }} />
                     <Box sx={{ display: { xs: "none", md: "flex" } }}>
-                        <span className= "userName">Hello {AuthService.getCurrentUser().name}</span>
+                        <span className= "userName">Hello {(AuthService.getCurrentUser())?(AuthService.getCurrentUser().name):'Tín Lê'}</span>
                         <div className="menuClassBtn">
                             <MenuActClass ></MenuActClass>
                         </div>
