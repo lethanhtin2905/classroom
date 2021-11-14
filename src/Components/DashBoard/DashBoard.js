@@ -46,7 +46,7 @@ function Dashboard(props) {
         return () => {
             
         }
-    }, [])
+    }, [classes])
 
     return (
         <Box sx={{ flexGrow: 1 }} className='box'>

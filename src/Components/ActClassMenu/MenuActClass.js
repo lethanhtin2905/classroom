@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {useHistory} from 'react-router-dom'
 import './MenuActClass.css'
 import {
     Button,
@@ -13,14 +14,20 @@ import {
     IconButton
 } from '@mui/material';
 import AddIcon from "@mui/icons-material/Add";
+import authHeader from '../../services/auth-header';
+import AuthService from '../../services/auth.service';
 
 export default function MenuActClass() {
+    const history = useHistory();
+    const currentUser = AuthService.getCurrentUser();
+    if (!currentUser) {
+        history.push('/logIn');
+    }
 
     const [open, setOpen] = React.useState(false);
     const [className, setClassName] = React.useState('');
     const [classID, setClassID] = React.useState('');
     const [desc, setDesc] = React.useState('');
-    const [teacher, setTeacher] = React.useState('');
     const [actClass, setActClass] = React.useState(null);
 
     const isMenuActClassOpen = Boolean(actClass);
@@ -45,19 +52,23 @@ export default function MenuActClass() {
 
     const handleAddClass = () => {
         if (!classID) {
-            alert("Để thêm lớp học, vui long nhập mã lớp học");
+            alert("Để thêm lớp học, vui lòng nhập mã lớp học");
         } else {
             const data = {
                 classID: classID,
                 className: className,
                 desc: desc,
-                teacher: teacher,
+                user: {
+                    _id: currentUser._id,
+                    email: currentUser.email,
+                    role: true
+                }
             }
             fetch('http://localhost:3030/classes', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+                headers: Object.assign({
+                    'Content-Type': 'application/json'   
+                }, authHeader()),
                 body: JSON.stringify(data),
             })
                 .then(response => response.json())
@@ -83,10 +94,6 @@ export default function MenuActClass() {
         setDesc(e.target.value)
     }
 
-    const onChangeTeacher = (e) => {
-        setTeacher(e.target.value)
-    }
-
     const menuId = "primary-search-account-menu";
     const renderActClassMenu = (
         <Menu
@@ -106,17 +113,17 @@ export default function MenuActClass() {
         >
             <MenuItem onClick={handleOpenAddClass}>Add Class</MenuItem>
             <Dialog open={open} onClose={handleClose}>
-                <DialogTitle>THÊM LỚP HỌC</DialogTitle>
+                <DialogTitle>ADD CLASS</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        Nhập thông tin lớp học
+                        Fill the information of class 
                     </DialogContentText>
                     <TextField
                         required={true}
                         margin="dense"
-                        id="name"
-                        label="Mã lớp học"
-                        type="name"
+                        id="id"
+                        label="ClassID"
+                        type="id"
                         fullWidth
                         variant="standard"
                         onChange={onChangeCode}
@@ -124,7 +131,7 @@ export default function MenuActClass() {
                     <TextField
                         margin="dense"
                         id="name"
-                        label="Tên lớp học"
+                        label="Class name"
                         type="name"
                         fullWidth
                         variant="standard"
@@ -132,21 +139,12 @@ export default function MenuActClass() {
                     />
                     <TextField
                         margin="dense"
-                        id="name"
-                        label="Mô tả"
-                        type="email"
+                        id="des"
+                        label="Description"
+                        type="des"
                         fullWidth
                         variant="standard"
                         onChange={onChangeDesc}
-                    />
-                    <TextField
-                        margin="dense"
-                        id="name"
-                        label="Giảng viên"
-                        type="email"
-                        fullWidth
-                        variant="standard"
-                        onChange={onChangeTeacher}
                     />
                 </DialogContent>
                 <DialogActions>

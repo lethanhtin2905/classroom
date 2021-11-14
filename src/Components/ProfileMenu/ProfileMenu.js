@@ -67,22 +67,25 @@ export default function ProfileMenu() {
             body: JSON.stringify({
                 name: name,
                 email: email,
+                userID: studentId
             })
         };
-        return fetch(constant.api + constant.userPath + constant.updateProfilePath, requestOptions)
+        fetch(constant.api + constant.userPath + constant.updateProfilePath, requestOptions)
             .then(response => response.json())
             .then(result => {
                 if (result.isSuccess) {
                     AuthService.updateCurrentUser({
                         name: name,
                         email: email,
-                        studentId: studentId
+                        userID: studentId
                     })
                 }
-            }, (error) => {
-                if (error) {
-                }
             })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        history.push('/dashboard');
+        handleClose()
     }
     
     const onChangeName = (e) => {
@@ -99,7 +102,7 @@ export default function ProfileMenu() {
 
     const menuId = "primary-search-account-menu";
     const renderActClassMenu = (
-        <div className="menuProfile">
+        <div>
             <Menu
                 anchorEl={actClass}
                 anchorOrigin={{
@@ -115,7 +118,7 @@ export default function ProfileMenu() {
                 open={isMenuActClassOpen}
                 onClose={handleMenuClose}
             >
-                <div >
+                <div className="menuProfile">
                     <MenuItem onClick={handleOpenAddClass}>Your Profile</MenuItem>
                     <MenuItem onClick={handleLogOut}>Log Out</MenuItem>
                 </div>
