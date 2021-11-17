@@ -69,7 +69,7 @@ function Dashboard(props) {
                                     {cls.desc}
                                 </Typography>
                                 <Typography className="teacher">
-                                   Create By: {cls.userLis}
+                                   Create By: {cls.createBy.name}
                                 </Typography>
                             </CardContent>
                             <CardActions>
