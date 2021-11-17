@@ -21,14 +21,15 @@ import constant from '../../Utils/index'
 
 export default function ProfileMenu() {
     const history = useHistory();
-    const user = AuthService.getCurrentUser();
-    if (!user) {
+    const currentUser = AuthService.getCurrentUser();
+    if (!currentUser) {
         history.push('/logIn');
     }
     const [open, setOpen] = React.useState(false);
-    const [name, setName] = React.useState(user.name);
-    const [email, setEmail] = React.useState(user.email);
-    const [studentId, setStudentId] = React.useState(user.userID);
+    const [name, setName] = React.useState(currentUser?currentUser.name:'');
+    const [email, setEmail] = React.useState(currentUser?currentUser.email:'');
+    const [studentId, setStudentId] = React.useState(currentUser?currentUser.userID:'');
+    const [classList, setClassList] = React.useState(currentUser?currentUser.classList:'');
     const [actClass, setActClass] = React.useState(null);
 
     const isMenuActClassOpen = Boolean(actClass);
@@ -67,17 +68,20 @@ export default function ProfileMenu() {
             body: JSON.stringify({
                 name: name,
                 email: email,
-                userID: studentId
+                userID: studentId,
+                classList: classList
             })
         };
         fetch(constant.api + constant.userPath + constant.updateProfilePath, requestOptions)
             .then(response => response.json())
             .then(result => {
                 if (result.isSuccess) {
+                    const classList = result.userUpdate.classList;
                     AuthService.updateCurrentUser({
                         name: name,
                         email: email,
-                        userID: studentId
+                        userID: studentId,
+                        classList: classList,
                     })
                 }
             })

@@ -18,7 +18,8 @@ import AuthService from '../../services/auth.service';
 
 function Dashboard(props) {
     const history = useHistory();
-    if (!AuthService.getCurrentUser()) {
+    const currentUser = AuthService.getCurrentUser()
+    if (!currentUser) {
         history.push('/logIn');
     }
 
@@ -46,7 +47,7 @@ function Dashboard(props) {
         return () => {
             
         }
-    }, [classes])
+    },[])
 
     return (
         <Box sx={{ flexGrow: 1 }} className='box'>
@@ -68,7 +69,7 @@ function Dashboard(props) {
                                     {cls.desc}
                                 </Typography>
                                 <Typography className="teacher">
-                                    Giảng viên: {cls.teacher}
+                                   Create By: {cls.userLis}
                                 </Typography>
                             </CardContent>
                             <CardActions>

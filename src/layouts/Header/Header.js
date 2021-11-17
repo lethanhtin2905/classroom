@@ -2,7 +2,7 @@ import * as React from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import './Header.css';
 import { styled, alpha } from "@mui/material/styles";
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import AuthService from '../../services/auth.service';
 import {
     AppBar, Box,
@@ -31,7 +31,11 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Header() {
     const classes = useStyles();
-    const [anchorEl, setAnchorEl] = React.useState(null);
+    const history = useHistory();
+    const currentUser = AuthService.getCurrentUser()
+    if (!currentUser) {
+        history.push ('/login')
+    }
 
     return (
         <Box sx={{ flexGrow: 1 }}>
@@ -53,7 +57,7 @@ export default function Header() {
                     </Typography>
                     <Box sx={{ flexGrow: 1 }} />
                     <Box sx={{ display: { xs: "none", md: "flex" } }}>
-                        <span className= "userName">Hello {AuthService.getCurrentUser().name}</span>
+                        <span className= "userName">Hello {currentUser ? currentUser.name : ""}</span>
                         <div className="menuClassBtn">
                             <MenuActClass ></MenuActClass>
                         </div>

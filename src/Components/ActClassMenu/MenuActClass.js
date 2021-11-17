@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {useHistory} from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import './MenuActClass.css'
 import {
     Button,
@@ -58,23 +58,26 @@ export default function MenuActClass() {
                 classID: classID,
                 className: className,
                 desc: desc,
-                user: {
-                    _id: currentUser._id,
-                    email: currentUser.email,
-                    role: true
-                }
             }
             fetch('http://localhost:3030/classes', {
                 method: 'POST',
                 headers: Object.assign({
-                    'Content-Type': 'application/json'   
+                    'Content-Type': 'application/json'
                 }, authHeader()),
                 body: JSON.stringify(data),
             })
                 .then(response => response.json())
                 .then(data => {
-                    console.log('Success:', data);
-                })
+                    const newClass = {
+                        _id: data.newClass._id,
+                        role: true
+                    }
+                    const classList = currentUser.classList
+                    classList.push(newClass);
+                    AuthService.updateCurrentUser({
+                        classList: classList
+                        })
+                    })
                 .catch((error) => {
                     console.error('Error:', error);
                 });
@@ -116,7 +119,7 @@ export default function MenuActClass() {
                 <DialogTitle>ADD CLASS</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        Fill the information of class 
+                        Fill the information of class
                     </DialogContentText>
                     <TextField
                         required={true}

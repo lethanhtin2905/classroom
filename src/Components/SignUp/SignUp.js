@@ -94,6 +94,7 @@ export default function SignUp(props) {
             return;
         }
         props.setIsLoading(true);
+        console.log(username, email, password, name, userID)
         AuthService.signUp(username, email, password, name, userID).then(result => {
             console.log(result)
             if (result.isSuccess) {

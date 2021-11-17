@@ -1,12 +1,12 @@
 import constant from '../Utils';
 
 class AuthService {
-    logIn(email, password) {
+    logIn(username, password) {
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ 
-                email: email,
+                username: username,
                 password: password
             })
         };
