@@ -185,6 +185,7 @@ export default function Login(props) {
                                 label="Remember me"
                             /> */}
                             <Button
+                                className="btn-login"
                                 type="submit"
                                 fullWidth
                                 variant="contained"
@@ -193,6 +194,7 @@ export default function Login(props) {
                                 LOGIN
                             </Button>
                             <GoogleLogin
+                            className="btn-login"
                                 clientId="456562452797-8l37bdgcv5uuacglkgjpkobpvs6nelli.apps.googleusercontent.com"
                                 buttonText="LOGIN WITH GOOGLE"
                                 onSuccess={responseGoogle}
@@ -200,10 +202,9 @@ export default function Login(props) {
                                 cookiePolicy={'single_host_origin'}
                             />,
                             <FacebookLogin
-                                className="facebook"
+                                className="btn-login"
                                 appId="1049530302499866"
                                 autoLoad={false}
-                                // onClick={componentClicked}
                                 callback={responseFacebook}
                             />
 

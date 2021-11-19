@@ -17,6 +17,7 @@ import LogIn from '../../Components/Login/Login';
 import SignUp from '../../Components/SignUp/SignUp';
 import Loading from '../Loading';
 import Redirecting from '../../Components/Redirecting';
+import ClassDetail from '../../Components/ClassDetail/ClassDetail'
 // import {createHashHistory} from 'history';
 // const hashHistory = createHashHistory({ basename: "" });
 
@@ -35,10 +36,12 @@ function App() {
 						<SignUp setIsLoading={setIsLoading} />
 					</Route>
 					<Route path="/dashboard">
-						{/* Header */}
 						<Header />
-						{/* End Header */}
 						<DashBoard setIsLoading={setIsLoading} />
+					</Route>
+					<Route path="/:id">
+						<Header />
+						<ClassDetail setIsLoading={setIsLoading}/>
 					</Route>
 					<Route path="/">
 						<Redirect to="/dashboard" />

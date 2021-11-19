@@ -76,8 +76,8 @@ export default function MenuActClass() {
                     classList.push(newClass);
                     AuthService.updateCurrentUser({
                         classList: classList
-                        })
                     })
+                })
                 .catch((error) => {
                     console.error('Error:', error);
                 });

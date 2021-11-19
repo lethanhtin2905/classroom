@@ -1,5 +1,5 @@
 import './DashBoard.css'
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 
 import { useEffect, useState } from 'react';
 import {
@@ -23,8 +23,6 @@ function Dashboard(props) {
         history.push('/logIn');
     }
 
-    // const [error, setError] = useState(null);
-    // const [isLoaded, setIsLoaded] = useState(false);
     const [classes, setClasses] = useState([]);
 
     useEffect(() => {
@@ -43,37 +41,40 @@ function Dashboard(props) {
                     props.setIsLoading(false)
                 }
             )
-
-        return () => {
-            
-        }
-    },[])
+    }, [])
 
     return (
         <Box sx={{ flexGrow: 1 }} className='box'>
+            
             <Grid container spacing={{ xs: 2, md: 5 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+                
                 {classes.map((cls, index) => (
                     <Grid item xs={2} sm={4} md={3} key={index} >
                         <Card className='classItem' sx={{ maxWidth: 500 }}>
                             <CardMedia
                                 component="img"
-                                height="250"
+                                height="210"
+                                width="250"
                                 image="https://p18cdn4static.sharpschool.com/UserFiles/Servers/Server_102145/Image/Our%20School/Academic%20Information/Grading%20Policy/1413463042370_wnp250.jpg"
                                 alt="green iguana"
                             />
                             <CardContent>
                                 <Typography gutterBottom variant="h5" component="div" className="className">
-                                    {cls.classID} - {cls.className}
+                                    <Link to="/" className="link">
+                                        {cls.classID} - {cls.className}
+                                    </Link>
                                 </Typography>
                                 <Typography variant="body2" color="text.secondary" className="desc">
                                     {cls.desc}
                                 </Typography>
                                 <Typography className="teacher">
-                                   Create By: {cls.createBy.name}
+                                    Create By: {cls.createBy.name}
                                 </Typography>
                             </CardContent>
                             <CardActions>
-                                <Button size="small" className="btn">SEE MORE</Button>
+                                <Link to = {`/${cls._id}`} className="link">
+                                    <Button size="small" className="btn">SEE MORE</Button>
+                                </Link>
                             </CardActions>
                         </Card>
                     </Grid>

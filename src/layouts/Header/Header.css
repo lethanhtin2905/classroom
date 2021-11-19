@@ -6,6 +6,17 @@
     margin-right: 10px;
 }
 
+.logo {
+    margin-right: 10px;
+    position: relative;
+    top: 5px;
+    z-index:2
+}
+
 .menuProfileBtn{
     margin-left: 10px;
+}
+
+.navbar{
+    background-color: #fff;
 }
