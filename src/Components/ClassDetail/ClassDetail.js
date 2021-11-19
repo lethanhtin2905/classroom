@@ -5,6 +5,14 @@ import { useHistory, Link } from 'react-router-dom'
 import "./ClassDetail.css";
 import authHeader from "../../services/auth-header"
 import AuthService from "../../services/auth.service"
+import Members from "../Members/Members"
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import Divider from '@mui/material/Divider';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import Avatar1 from '@mui/material/Avatar';
+import Typography from '@mui/material/Typography';
 
 export default function ClassDetail(props) {
     const history = useHistory();
@@ -79,24 +87,24 @@ export default function ClassDetail(props) {
                     </div>
                 </div>
 
-                <div className = "detail_menu">
+                <div className="detail_menu">
                     <Link to="http://localhost:3000/6194bcfbecdea5bc854e95aa">
                         <span>
-                        <button className= {posts?"detail_menu_item isActive":"detail_menu_item" }
-                            onClick={() => {setPosts(true); setGrades(false); setMembers(false)}}>
-                            POSTS
-                        </button>
+                            <button className={posts ? "detail_menu_item isActive" : "detail_menu_item"}
+                                onClick={() => { setPosts(true); setGrades(false); setMembers(false) }}>
+                                POSTS
+                            </button>
                         </span>
                     </Link>
                     <Link to="http://localhost:3000/6194bcfbecdea5bc854e95aa">
-                        <span><button className= {members?"detail_menu_item isActive":"detail_menu_item" } 
-                            onClick={() => {setPosts(false); setGrades(false); setMembers(true)}}>
+                        <span><button className={members ? "detail_menu_item isActive" : "detail_menu_item"}
+                            onClick={() => { setPosts(false); setGrades(false); setMembers(true) }}>
                             MEMBERS
                         </button></span>
                     </Link>
                     <Link to="http://localhost:3000/6194bcfbecdea5bc854e95aa">
-                        <span><button className= {grades?"detail_menu_item isActive":"detail_menu_item" } 
-                            onClick={() => {setPosts(false); setGrades(true); setMembers(false)}}>
+                        <span><button className={grades ? "detail_menu_item isActive" : "detail_menu_item"}
+                            onClick={() => { setPosts(false); setGrades(true); setMembers(false) }}>
                             GRADES
                         </button></span>
                     </Link>
@@ -214,6 +222,43 @@ export default function ClassDetail(props) {
                                         <div>Announce Something to class</div>
                                     </div>
                                 )}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="detail__announce">
+
+                    <div className="detail__status">
+                        <p>Class Code</p>
+                        <p className="detail__subText">{currentClass.classID}</p>
+                    </div>
+                    <div className="detail__announcements">
+                        <div className="detail__announcementsWrapper">
+                            <div className="detail__ancContent">
+                                <div className="detail__wrapper100" v>
+                                    <ListItem alignItems="flex-start">
+                                        <ListItemAvatar>
+                                            <Avatar1 alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+                                        </ListItemAvatar>
+                                        <ListItemText
+                                            primary="Brunch this weekend?"
+                                            secondary={
+                                                <React.Fragment>
+                                                    <Typography
+                                                        sx={{ display: 'inline' }}
+                                                        component="span"
+                                                        variant="body2"
+                                                        color="text.primary"
+                                                    >
+                                                        Ali Connors
+                                                    </Typography>
+                                                    {" — I'll be in your neighborhood doing errands this…"}
+                                                </React.Fragment>
+                                            }
+                                        />
+                                    </ListItem>
+                                </div>
                             </div>
                         </div>
                     </div>
