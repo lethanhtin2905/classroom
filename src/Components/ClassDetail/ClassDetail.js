@@ -88,26 +88,24 @@ export default function ClassDetail(props) {
                 </div>
 
                 <div className="detail_menu">
-                    <Link to="http://localhost:3000/6194bcfbecdea5bc854e95aa">
-                        <span>
-                            <button className={posts ? "detail_menu_item isActive" : "detail_menu_item"}
-                                onClick={() => { setPosts(true); setGrades(false); setMembers(false) }}>
-                                POSTS
-                            </button>
-                        </span>
-                    </Link>
-                    <Link to="http://localhost:3000/6194bcfbecdea5bc854e95aa">
-                        <span><button className={members ? "detail_menu_item isActive" : "detail_menu_item"}
+                    <span>
+                        <button className={posts ? "detail_menu_item isActive" : "detail_menu_item"}
+                            onClick={() => { setPosts(true); setGrades(false); setMembers(false) }}>
+                            POSTS
+                        </button>
+                    </span>
+                    <span>
+                        <button className={members ? "detail_menu_item isActive" : "detail_menu_item"}
                             onClick={() => { setPosts(false); setGrades(false); setMembers(true) }}>
                             MEMBERS
-                        </button></span>
-                    </Link>
-                    <Link to="http://localhost:3000/6194bcfbecdea5bc854e95aa">
-                        <span><button className={grades ? "detail_menu_item isActive" : "detail_menu_item"}
+                        </button>
+                    </span>
+                    <span>
+                        <button className={grades ? "detail_menu_item isActive" : "detail_menu_item"}
                             onClick={() => { setPosts(false); setGrades(true); setMembers(false) }}>
                             GRADES
-                        </button></span>
-                    </Link>
+                        </button>
+                    </span>
                 </div>
 
                 {/* Posts in class */}
@@ -170,99 +168,8 @@ export default function ClassDetail(props) {
                 </div>
 
                 {/* Members of class */}
-                <div className="detail__announce">
 
-                    <div className="detail__status">
-                        <p>Class Code</p>
-                        <p className="detail__subText">{currentClass.classID}</p>
-                    </div>
-
-                    <div className="detail__announcements">
-                        <div className="detail__announcementsWrapper">
-                            <div className="detail__ancContent">
-                                {showInput ? (
-                                    <div className="detail__form">
-                                        <TextField
-                                            id="filled-multiline-flexible"
-                                            multiline
-                                            label="Announce Something to class"
-                                            variant="filled"
-                                            value={inputValue}
-                                            onChange={(e) => setInput(e.target.value)}
-                                        />
-                                        <div className="detail__buttons">
-                                            <input
-                                                onChange={handleChange}
-                                                variant="outlined"
-                                                color="primary"
-                                                type="file"
-                                            />
-
-                                            <div>
-                                                <Button onClick={() => setShowInput(false)}>
-                                                    Cancel
-                                                </Button>
-
-                                                <Button
-                                                    onClick={handleUpload}
-                                                    color="primary"
-                                                    variant="contained"
-                                                >
-                                                    Post
-                                                </Button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                ) : (
-                                    <div
-                                        className="detail__wrapper100"
-                                        onClick={() => setShowInput(true)}
-                                    >
-                                        <Avatar />
-                                        <div>Announce Something to class</div>
-                                    </div>
-                                )}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="detail__announce">
-
-                    <div className="detail__status">
-                        <p>Class Code</p>
-                        <p className="detail__subText">{currentClass.classID}</p>
-                    </div>
-                    <div className="detail__announcements">
-                        <div className="detail__announcementsWrapper">
-                            <div className="detail__ancContent">
-                                <div className="detail__wrapper100" v>
-                                    <ListItem alignItems="flex-start">
-                                        <ListItemAvatar>
-                                            <Avatar1 alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-                                        </ListItemAvatar>
-                                        <ListItemText
-                                            primary="Brunch this weekend?"
-                                            secondary={
-                                                <React.Fragment>
-                                                    <Typography
-                                                        sx={{ display: 'inline' }}
-                                                        component="span"
-                                                        variant="body2"
-                                                        color="text.primary"
-                                                    >
-                                                        Ali Connors
-                                                    </Typography>
-                                                    {" — I'll be in your neighborhood doing errands this…"}
-                                                </React.Fragment>
-                                            }
-                                        />
-                                    </ListItem>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <Members currentClass={currentClass}> </Members>
             </div>
         </div>
     );
