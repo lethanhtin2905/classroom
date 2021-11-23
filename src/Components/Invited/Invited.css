@@ -1,0 +1,18 @@
+.btnAddUser{
+    background-color:royalblue;
+    padding: 6px;
+    padding-left: 8px;
+    padding-right: 8px;
+    color: white;
+    font-size: 10px;
+    font-weight: bold !important;
+    border: royalblue solid;
+    border-radius: 50%;
+    margin: 10px 10px 10px 10px;
+    position: relative;
+    left: 530px;
+}
+.btnAddUser:hover{
+    cursor: pointer;
+    background-color: blue;
+}

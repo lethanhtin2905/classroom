@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useHistory } from 'react-router-dom'
-import './MenuActClass.css'
+import './Invited.css'
 import {
     Button,
     MenuItem,
@@ -17,28 +17,23 @@ import AddIcon from "@mui/icons-material/Add";
 import authHeader from '../../services/auth-header';
 import AuthService from '../../services/auth.service';
 
-export default function MenuActClass() {
+export default function Invited(props) {
+
     const history = useHistory();
     const currentUser = AuthService.getCurrentUser();
     if (!currentUser) {
         history.push('/logIn');
     }
 
+    const {currentClass, role} = props;
     const [open, setOpen] = React.useState(false);
-    const [className, setClassName] = React.useState('');
-    const [classID, setClassID] = React.useState('');
-    const [desc, setDesc] = React.useState('');
-    const [actClass, setActClass] = React.useState(null);
+    const [email, setEmail] = React.useState('');
+    const [addTeacher, setAddTeacher] = React.useState(null);
 
-    const isMenuActClassOpen = Boolean(actClass);
-
-    const handleActClassMenuOpen = (event) => {
-        handleMenuClose();
-        setActClass(event.currentTarget);
-    };
+    const isAddClassDialog = Boolean(addTeacher);
 
     const handleMenuClose = () => {
-        setActClass(null);
+        setAddTeacher(null);
     };
 
     const handleOpenAddClass = () => {
@@ -50,16 +45,15 @@ export default function MenuActClass() {
         handleMenuClose();
     };
 
-    const handleAddClass = () => {
-        if (!classID) {
+    const handleAddTeacher = () => {
+        if (!email) {
             alert("Để thêm lớp học, vui lòng nhập mã lớp học");
         } else {
             const data = {
-                classID: classID,
-                className: className,
-                desc: desc,
+                email: email,
+                role: role
             }
-            fetch('http://localhost:3030/classes', {
+            fetch(`http://localhost:3030/classes/${currentClass._id}/invited`, {
                 method: 'POST',
                 headers: Object.assign({
                     'Content-Type': 'application/json'
@@ -86,22 +80,14 @@ export default function MenuActClass() {
         }
     }
 
-    const onChangeCode = (e) => {
-        setClassID(e.target.value)
-    }
-
-    const onChangeName = (e) => {
-        setClassName(e.target.value)
-    }
-
-    const onChangeDesc = (e) => {
-        setDesc(e.target.value)
+    const onChangeEmail = (e) => {
+        setEmail(e.target.value)
     }
 
     const menuId = "primary-search-account-menu";
-    const renderActClassMenu = (
+    const renderAddMemberDialog = (
         <Menu
-            anchorEl={actClass}
+            anchorEl={addTeacher}
             anchorOrigin={{
                 vertical: 40,
                 horizontal: 40,
@@ -112,69 +98,41 @@ export default function MenuActClass() {
                 vertical: "top",
                 horizontal: "right",
             }}
-            open={isMenuActClassOpen}
+            open={isAddClassDialog}
             onClose={handleMenuClose}
         >
-            <MenuItem onClick={handleOpenAddClass}>Add Class</MenuItem>
+            
             <Dialog open={open} onClose={handleClose}>
-                <DialogTitle>ADD CLASS</DialogTitle>
+                <DialogTitle>{role?"ADD TEACHER":"ADD STUDENT"}</DialogTitle>
                 <DialogContent>
-                    <DialogContentText>
-                        Fill the information of class
-                    </DialogContentText>
+                    <h4>Invitation link: http://localhost:3000/{currentClass._id}/invited</h4>
+                    
                     <TextField
                         required={true}
                         margin="dense"
-                        id="id"
-                        label="ClassID"
-                        type="id"
+                        id="email"
+                        label={role ? "Fill in the teacher's email" : "Fill in the student's email"}
+                        type="email"
                         fullWidth
                         variant="standard"
-                        onChange={onChangeCode}
+                        onChange={onChangeEmail}
                     />
-                    <TextField
-                        margin="dense"
-                        id="name"
-                        label="Class name"
-                        type="name"
-                        fullWidth
-                        variant="standard"
-                        onChange={onChangeName}
-                    />
-                    <TextField
-                        margin="dense"
-                        id="des"
-                        label="Description"
-                        type="des"
-                        fullWidth
-                        variant="standard"
-                        onChange={onChangeDesc}
-                    />
+
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleAddClass}>Add Class</Button>
+                    <Button onClick={handleAddTeacher}>{role?"Add Teacher":"Add Student"}</Button>
                     <Button onClick={handleClose}>Cancel</Button>
                 </DialogActions>
             </Dialog>
-            <MenuItem onClick={handleMenuClose}>Join Class</MenuItem>
         </Menu>
     );
 
     return (
         <div>
-            <IconButton className="BtnActClass"
-                size="large"
-                edge="end"
-                aria-label="account of current user"
-                aria-controls={menuId}
-                aria-haspopup="true"
-                onClick={handleActClassMenuOpen}
-                color="inherit"
-                className="icon"
-            >
-                <AddIcon />
-            </IconButton>
-            {renderActClassMenu}
+            <div className="btnAddUser">
+                <AddIcon onClick={handleOpenAddClass}/>
+            </div>
+            {renderAddMemberDialog}
         </div>
     );
 }

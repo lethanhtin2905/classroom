@@ -10,11 +10,23 @@ import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import AddIcon from "@mui/icons-material/Add";
 import authHeader from '../../services/auth-header';
+import Invited from '../Invited/Invited';
+import AuthService from "../../services/auth.service"
 
 export default function Members(props) {
+    const currentUser = AuthService.getCurrentUser()
     const [currentClass, setCurrentClass] = useState(props.currentClass);
+    const listUser = currentClass.userList;
     const [users, setUsers] = useState([]);
-    console.log(currentClass);
+    let teachers = []
+    let students = []
+
+    let checkCreateBy = false;
+    if(currentClass.createBy._id === currentUser._id){
+        checkCreateBy = true;
+    }
+
+    // console.log(currentUser, currentClass.createBy, checkCreateBy)
 
     useEffect(() => {
         const requestOptions = {
@@ -25,7 +37,9 @@ export default function Members(props) {
             .then(res => res.json())
             .then(
                 (result) => {
-                    setCurrentClass(result);
+                    console.log(result)
+                    setUsers(result);
+
                     // props.setIsLoading(false);
                 },
                 (error) => {
@@ -37,6 +51,19 @@ export default function Members(props) {
 
         }
     }, [])
+
+    for (var i = 0; i < listUser.length; i++) {
+        for (var j = 0; j < users.length; j++) {
+            if (listUser[i]._id === users[j]._id) {
+                if (listUser[i].role === true) {
+                    teachers.push(users[j])
+                } else {
+                    students.push(users[j])
+                }
+            }
+        }
+    }
+
     return (
         <div className="detail__members">
             <div className="detail__members_item">
@@ -45,22 +72,21 @@ export default function Members(props) {
                         <div className="role__content">
                             TEACHER
                         </div>
-                        <div className="btnAddUser">
-                            <AddIcon />
-                        </div>
+                        {checkCreateBy?<Invited currentClass = {currentClass} role={true}></Invited>:<div></div>}
                     </div>
                     <div className="line">
-                        <hr/>
+                        <hr />
                     </div>
-                    
+
                     <div className="detail__memberContent">
                         <div className="detail__wrapper1001">
-                            <ListItem alignItems="flex-start">
+                            {teachers.map((teacher, index) =>
+                            (<ListItem alignItems="flex-start" key={index}>
                                 <ListItemAvatar>
                                     <Avatar />
                                 </ListItemAvatar>
                                 <ListItemText
-                                    primary="Brunch this weekend?"
+                                    primary={teacher.name}
                                     secondary={
                                         <React.Fragment>
                                             <Typography
@@ -69,14 +95,15 @@ export default function Members(props) {
                                                 variant="body2"
                                                 color="text.primary"
                                             >
-                                                Ali Connors
+                                                Email:
                                             </Typography>
-                                            {" — I'll be in your neighborhood doing errands this…"}
+                                            {teacher.email}
                                         </React.Fragment>
                                     }
                                 />
-                            </ListItem>
+                            </ListItem>))}
                         </div>
+
                     </div>
                 </div>
                 <div className="detail__memberWrapper">
@@ -84,22 +111,21 @@ export default function Members(props) {
                         <div className="role__content">
                             STUDENT
                         </div>
-                        <div className="btnAddUser">
-                            <AddIcon />
-                        </div>
+                        {checkCreateBy?<Invited currentClass = {currentClass} role={false}></Invited>:<div></div>}
                     </div>
                     <div className="line">
-                        <hr/>
+                        <hr />
                     </div>
                     <div className="detail__memberContent">
                         <div className="detail__wrapper1001">
-                            
-                            <ListItem alignItems="flex-start">
+
+                            {students.map((student, index) =>
+                            (<ListItem alignItems="flex-start" key={index}>
                                 <ListItemAvatar>
                                     <Avatar />
                                 </ListItemAvatar>
                                 <ListItemText
-                                    primary="Brunch this weekend?"
+                                    primary={student.name}
                                     secondary={
                                         <React.Fragment>
                                             <Typography
@@ -110,11 +136,11 @@ export default function Members(props) {
                                             >
                                                 Email: 
                                             </Typography>
-                                            {" — I'll be in your neighborhood doing errands this…"}
+                                            {student.email}
                                         </React.Fragment>
                                     }
                                 />
-                            </ListItem>
+                            </ListItem>))}
                         </div>
                     </div>
                 </div>

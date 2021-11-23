@@ -95,21 +95,20 @@ export default function SignUp(props) {
         }
         props.setIsLoading(true);
         console.log(username, email, password, name, userID)
-        AuthService.signUp(username, email, password, name, userID).then(result => {
-            console.log(result)
-            if (result.isSuccess) {
-                history.push('/logIn');
-            } else {
-                setIsSuccess(result.isSuccess);
-                // Error message
-                setErrMsg(result.message);
-            }
-            props.setIsLoading(false);
-        }, (error) => {
-            if (error) {
+        AuthService.signUp(username, email, password, name, userID)
+            .then(result => {
+                if (result.isSuccess) {
+                    history.push('/logIn');
+                } else {
+                    setIsSuccess(result.isSuccess);
+                    setErrMsg(result.message);
+                }
                 props.setIsLoading(false);
-            }
-        });
+            }, (error) => {
+                if (error) {
+                    props.setIsLoading(false);
+                }
+            });
     }
 
     return (
@@ -224,8 +223,6 @@ export default function SignUp(props) {
                                 id="userID"
                                 label="userID"
                                 value={userID}
-                                // error={userID === ""}
-                                // helperText={userID === "" ? 'Enter user ID' : ' '}
                                 onChange={(evt) => handleUserIDChange(evt)}
                             />
                             <FormHelperText className={(isSuccess) ? classes.formMessageSuccess : classes.formMessageFail} error={!isSuccess}>

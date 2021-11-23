@@ -46,19 +46,6 @@ export default function Header() {
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static" className="navbar">
                 <Toolbar>
-                    {/* <IconButton
-                        size="large"
-                        edge="start"
-                        color="inherit"
-                        aria-label="open drawer"
-                        sx={{ mr: 2 }}
-                    >
-                        <MenuIcon />
-                        <Link to="/dashboard" className={classes.logo}>
-                            <img width="30px" height="20px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Closed_Book_Icon.svg/1200px-Closed_Book_Icon.svg.png" />
-                        </Link>
-
-                    </IconButton> */}
                     <Typography variant="h6" color="inherit" noWrap>
                         <Link to="/dashboard" className='logo'>
                             <img width="40px" height="40px" src={logo} />

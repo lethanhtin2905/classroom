@@ -27,9 +27,12 @@ export default function ClassDetail(props) {
     const [inputValue, setInput] = useState("");
     const [image, setImage] = useState(null);
     const [currentClass, setCurrentClass] = useState({});
+    const [createBy, setCreateBy] = useState({});
     const [posts, setPosts] = useState(true)
     const [members, setMembers] = useState(false)
     const [grades, setGrades] = useState(false)
+
+   
 
     const handleChange = (e) => {
         if (e.target.files[0]) {
@@ -49,6 +52,7 @@ export default function ClassDetail(props) {
             .then(
                 (result) => {
                     setCurrentClass(result);
+                    setCreateBy(result.createBy);
                     props.setIsLoading(false);
                 },
                 (error) => {
@@ -77,11 +81,11 @@ export default function ClassDetail(props) {
                                 {currentClass.desc}
                             </div>
                             <div className="detail__wrapper2">
-                                <em className="detail__code">Link invite: </em>
-                                <span className="detail__id">{currentClass.classID}</span>
+                                <em className="detail__code">Link invite: http://localhost:3000/{currentClass._id}/invited</em>
+                                <span className="detail__id">{currentClass._id}</span>
                             </div>
                             <div className="detail__wrapper2 detail__id">
-                                Create by: Tín
+                                Create by: {createBy.name}
                             </div>
                         </div>
                     </div>
@@ -169,7 +173,7 @@ export default function ClassDetail(props) {
 
                 {/* Members of class */}
 
-                <Members currentClass={currentClass}> </Members>
+                {members?<Members currentClass={currentClass}> </Members>:<div></div>}
             </div>
         </div>
     );
