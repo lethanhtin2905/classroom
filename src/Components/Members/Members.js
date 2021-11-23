@@ -50,19 +50,24 @@ export default function Members(props) {
         return () => {
 
         }
-    }, [])
+    },[])
 
     for (var i = 0; i < listUser.length; i++) {
         for (var j = 0; j < users.length; j++) {
             if (listUser[i]._id === users[j]._id) {
                 if (listUser[i].role === true) {
                     teachers.push(users[j])
-                } else {
+                } 
+                if (listUser[i].role === false) {
                     students.push(users[j])
                 }
             }
         }
     }
+
+    console.log(listUser)
+    console.log(users)
+    console.log(teachers, students )
 
     return (
         <div className="detail__members">
@@ -86,7 +91,7 @@ export default function Members(props) {
                                     <Avatar />
                                 </ListItemAvatar>
                                 <ListItemText
-                                    primary={teacher.name}
+                                    primary={teacher.name?teacher.name:"Noname"}
                                     secondary={
                                         <React.Fragment>
                                             <Typography
@@ -125,7 +130,7 @@ export default function Members(props) {
                                     <Avatar />
                                 </ListItemAvatar>
                                 <ListItemText
-                                    primary={student.name}
+                                    primary={student.name?student.name:"Noname"}
                                     secondary={
                                         <React.Fragment>
                                             <Typography

@@ -45,7 +45,7 @@ export default function Invited(props) {
         handleMenuClose();
     };
 
-    const handleAddTeacher = () => {
+    const handleInvited = () => {
         if (!email) {
             alert("Để thêm lớp học, vui lòng nhập mã lớp học");
         } else {
@@ -63,15 +63,6 @@ export default function Invited(props) {
                 .then(response => response.json())
                 .then(data => {
                     console.log(data);
-                    const newClass = {
-                        _id: data.newClass._id,
-                        role: true
-                    }
-                    const classList = currentUser.classList
-                    classList.push(newClass);
-                    AuthService.updateCurrentUser({
-                        classList: classList
-                    })
                 })
                 .catch((error) => {
                     console.error('Error:', error);
@@ -105,7 +96,7 @@ export default function Invited(props) {
             <Dialog open={open} onClose={handleClose}>
                 <DialogTitle>{role?"ADD TEACHER":"ADD STUDENT"}</DialogTitle>
                 <DialogContent>
-                    <h4>Invitation link: http://localhost:3000/{currentClass._id}/invited</h4>
+                    <h4>Invitation link: http://localhost:3000/{currentClass._id}</h4>
                     
                     <TextField
                         required={true}
@@ -120,7 +111,7 @@ export default function Invited(props) {
 
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleAddTeacher}>{role?"Add Teacher":"Add Student"}</Button>
+                    <Button onClick={handleInvited}>{role?"Add Teacher":"Add Student"}</Button>
                     <Button onClick={handleClose}>Cancel</Button>
                 </DialogActions>
             </Dialog>
