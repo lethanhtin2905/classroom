@@ -58,6 +58,7 @@ export default function Login(props) {
                 setUsername("");
                 setPassword("");
                 setErrMsg(result.message);
+                alert (errorMsg);
             }
             props.setIsLoading(false);
         }, (error) => {

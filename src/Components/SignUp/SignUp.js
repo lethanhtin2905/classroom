@@ -94,7 +94,6 @@ export default function SignUp(props) {
             return;
         }
         props.setIsLoading(true);
-        console.log(username, email, password, name, userID)
         AuthService.signUp(username, email, password, name, userID)
             .then(result => {
                 if (result.isSuccess) {
@@ -102,6 +101,7 @@ export default function SignUp(props) {
                 } else {
                     setIsSuccess(result.isSuccess);
                     setErrMsg(result.message);
+                    alert (errorMsg)
                 }
                 props.setIsLoading(false);
             }, (error) => {

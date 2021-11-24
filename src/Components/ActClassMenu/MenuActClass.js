@@ -68,16 +68,20 @@ export default function MenuActClass() {
             })
                 .then(response => response.json())
                 .then(data => {
-                    console.log(data);
-                    const newClass = {
-                        _id: data.newClass._id,
-                        role: true
+                    console.log(data)
+                    if (data.isSuccess) {
+                        const newClass = {
+                            _id: data.newClass._id,
+                            role: true
+                        }
+                        const classList = currentUser.classList
+                        classList.push(newClass);
+                        AuthService.updateCurrentUser({
+                            classList: classList
+                        });
+                    } else {
+                        alert(data.message);
                     }
-                    const classList = currentUser.classList
-                    classList.push(newClass);
-                    AuthService.updateCurrentUser({
-                        classList: classList
-                    })
                 })
                 .catch((error) => {
                     console.error('Error:', error);

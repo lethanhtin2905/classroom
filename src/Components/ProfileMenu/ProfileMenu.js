@@ -83,6 +83,8 @@ export default function ProfileMenu() {
                         userID: studentId,
                         classList: classList,
                     })
+                } else {
+                    alert(result.message);
                 }
             })
             .catch((error) => {

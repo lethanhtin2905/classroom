@@ -5,14 +5,7 @@ import { useHistory, Link } from 'react-router-dom'
 import "./ClassDetail.css";
 import authHeader from "../../services/auth-header"
 import AuthService from "../../services/auth.service"
-import Members from "../Members/Members"
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import Divider from '@mui/material/Divider';
-import ListItemText from '@mui/material/ListItemText';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
-import Avatar1 from '@mui/material/Avatar';
-import Typography from '@mui/material/Typography';
+import Members from "../Members/Members";
 
 export default function ClassDetail(props) {
     const history = useHistory();
@@ -31,8 +24,6 @@ export default function ClassDetail(props) {
     const [posts, setPosts] = useState(true)
     const [members, setMembers] = useState(false)
     const [grades, setGrades] = useState(false)
-
-   
 
     const handleChange = (e) => {
         if (e.target.files[0]) {
