@@ -86,6 +86,8 @@ export default function Login(props) {
         });
     }
 
+    const responseGoogle2 =() =>{}
+
     const responseFacebook = (response) => {
         props.setIsLoading(true);
         AuthService.logInWithFacebook(response.accessToken, response.userID).then(result => {
@@ -199,8 +201,8 @@ export default function Login(props) {
                                 clientId="456562452797-8l37bdgcv5uuacglkgjpkobpvs6nelli.apps.googleusercontent.com"
                                 buttonText="LOGIN WITH GOOGLE"
                                 onSuccess={responseGoogle}
-                                onFailure={responseGoogle}
-                                cookiePolicy={'single_host_origin'}
+                                onFailure={responseGoogle2}
+                                cookiePolicy={'none'}
                             />,
                             <FacebookLogin
                                 className="btn-login"
