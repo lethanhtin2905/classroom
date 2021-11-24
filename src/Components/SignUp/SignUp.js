@@ -97,11 +97,12 @@ export default function SignUp(props) {
         AuthService.signUp(username, email, password, name, userID)
             .then(result => {
                 if (result.isSuccess) {
+                    alert (result.message)
                     history.push('/logIn');
                 } else {
                     setIsSuccess(result.isSuccess);
                     setErrMsg(result.message);
-                    alert (errorMsg)
+                    alert (result.message)
                 }
                 props.setIsLoading(false);
             }, (error) => {
@@ -166,13 +167,13 @@ export default function SignUp(props) {
                                 required
                                 fullWidth
                                 name="password"
-                                label="Password"
+                                label="Password (At least 8 characters)"
                                 type="password"
                                 id="password"
                                 autoComplete="current-password"
                                 value={password}
-                                error={password === ""}
-                                helperText={password === "" ? 'Enter password' : ' '}
+                                error={password === "" || password.length<8}
+                                helperText={(password === "" || password.length<8)? 'Enter password' : ' '}
                                 onChange={(evt) => handlePasswordChange(evt)}
                             />
                             <TextField

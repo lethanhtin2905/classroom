@@ -18,15 +18,18 @@ export default function Members(props) {
     const [currentClass, setCurrentClass] = useState(props.currentClass);
     const listUser = currentClass.userList;
     const [users, setUsers] = useState([]);
-    let teachers = []
+    // const [teachers, setTeacher] = useState([])
+    // const [students, setStudent] = useState([])
+    let teachers = [];
     let students = []
+
+    // localStorage.setItem("teachers", JSON.stringify([]));
+    // localStorage.setItem("students", JSON.stringify([]));
 
     let checkCreateBy = false;
     if(currentClass.createBy._id === currentUser._id){
         checkCreateBy = true;
     }
-
-    // console.log(currentUser, currentClass.createBy, checkCreateBy)
 
     useEffect(() => {
         const requestOptions = {
@@ -37,7 +40,6 @@ export default function Members(props) {
             .then(res => res.json())
             .then(
                 (result) => {
-                    console.log(result)
                     setUsers(result);
 
                     // props.setIsLoading(false);
@@ -47,9 +49,7 @@ export default function Members(props) {
                 }
             )
 
-        return () => {
-
-        }
+        return () => {}
     },[])
 
     for (var i = 0; i < listUser.length; i++) {
@@ -59,15 +59,13 @@ export default function Members(props) {
                     teachers.push(users[j])
                 } 
                 if (listUser[i].role === false) {
-                    students.push(users[j])
+                    students.push(users[j]);
                 }
             }
         }
     }
 
-    console.log(listUser)
-    console.log(users)
-    console.log(teachers, students )
+    console.log(teachers, students)
 
     return (
         <div className="detail__members">

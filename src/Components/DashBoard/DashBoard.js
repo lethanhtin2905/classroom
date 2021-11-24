@@ -41,7 +41,9 @@ function Dashboard(props) {
                     props.setIsLoading(false)
                 }
             )
-    }, [])
+
+        return () => {}
+    })
 
     return (
         <Box sx={{ flexGrow: 1 }} className='box'>

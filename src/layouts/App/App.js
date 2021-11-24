@@ -46,6 +46,9 @@ function App() {
 					<Route path="/">
 						<Redirect to="/dashboard" />
 					</Route>
+					<Route path="/:id/invited">
+						<Redirect to="/:id" />
+					</Route>
 					<Route path="/redirect/:authType/:ID">
 						<Redirecting />
 					</Route>

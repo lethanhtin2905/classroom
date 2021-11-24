@@ -16,7 +16,10 @@
 }
 
 .className {
+  font-size: 16px !important;
   text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
   margin: 0 auto !important;
 }
 

@@ -51,10 +51,8 @@ export default function ClassDetail(props) {
                 }
             )
 
-        return () => {
-
-        }
-    }, [])
+        return () => {}
+    },[])
 
     return (
         <div className="detail">
@@ -104,7 +102,7 @@ export default function ClassDetail(props) {
                 </div>
 
                 {/* Posts in class */}
-                <div className="detail__announce">
+                {posts?(<div className="detail__announce">
 
                     <div className="detail__status">
                         <p>Class Code</p>
@@ -160,7 +158,7 @@ export default function ClassDetail(props) {
                         </div>
                         {/* <Announcment classData={classData} /> */}
                     </div>
-                </div>
+                </div>):<div></div>}
 
                 {/* Members of class */}
 

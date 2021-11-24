@@ -52,7 +52,7 @@ export default function MenuActClass() {
 
     const handleAddClass = () => {
         if (!classID) {
-            alert("Để thêm lớp học, vui lòng nhập mã lớp học");
+            alert("To add a class, please enter the Class ID");
         } else {
             const data = {
                 classID: classID,
@@ -68,8 +68,8 @@ export default function MenuActClass() {
             })
                 .then(response => response.json())
                 .then(data => {
-                    console.log(data)
                     if (data.isSuccess) {
+                        alert('Successfully added new class');
                         const newClass = {
                             _id: data.newClass._id,
                             role: true

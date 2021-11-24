@@ -28,12 +28,12 @@ export default function Invited(props) {
     const {currentClass, role} = props;
     const [open, setOpen] = React.useState(false);
     const [email, setEmail] = React.useState('');
-    const [addTeacher, setAddTeacher] = React.useState(null);
+    const [addUser, setAddUser] = React.useState(null);
 
-    const isAddClassDialog = Boolean(addTeacher);
+    const isAddClassDialog = Boolean(addUser);
 
     const handleMenuClose = () => {
-        setAddTeacher(null);
+        setAddUser(null);
     };
 
     const handleOpenAddClass = () => {
@@ -47,7 +47,7 @@ export default function Invited(props) {
 
     const handleInvited = () => {
         if (!email) {
-            alert("Để thêm lớp học, vui lòng nhập mã lớp học");
+            
         } else {
             const data = {
                 email: email,
@@ -62,7 +62,7 @@ export default function Invited(props) {
             })
                 .then(response => response.json())
                 .then(data => {
-                    console.log(data);
+                    alert('You have successfully invited');
                 })
                 .catch((error) => {
                     console.error('Error:', error);
@@ -78,7 +78,7 @@ export default function Invited(props) {
     const menuId = "primary-search-account-menu";
     const renderAddMemberDialog = (
         <Menu
-            anchorEl={addTeacher}
+            anchorEl={addUser}
             anchorOrigin={{
                 vertical: 40,
                 horizontal: 40,

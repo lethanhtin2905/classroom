@@ -83,7 +83,9 @@ export default function ProfileMenu() {
                         userID: studentId,
                         classList: classList,
                     })
+                    alert(result.message);
                 } else {
+                    setStudentId(currentUser.userID)
                     alert(result.message);
                 }
             })

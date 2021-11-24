@@ -188,6 +188,7 @@
   .role__content{
     font-family: "Times New Roman", Times, serif;
     font-size: 24px;
+    font-weight: bold;
     color: blue;
     padding: 10px;
     padding-left: 20px;
