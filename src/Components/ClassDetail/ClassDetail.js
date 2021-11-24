@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router";
 import { useHistory, Link } from 'react-router-dom'
 import "./ClassDetail.css";
+import constant from '../../Utils'
 import authHeader from "../../services/auth-header"
 import AuthService from "../../services/auth.service"
 import Members from "../Members/Members";
@@ -38,7 +39,7 @@ export default function ClassDetail(props) {
             method: 'GET',
             headers: authHeader(),
         };
-        fetch(`http://localhost:3030/classes/${id}`, requestOptions)
+        fetch(constant.api+constant.allClassPath`${id}`, requestOptions)
             .then(res => res.json())
             .then(
                 (result) => {

@@ -1,4 +1,5 @@
 import './DashBoard.css'
+import constant from '../../Utils'
 import { useHistory, Link } from "react-router-dom";
 
 import { useEffect, useState } from 'react';
@@ -30,7 +31,7 @@ function Dashboard(props) {
             method: 'GET',
             headers: authHeader(),
         };
-        fetch("http://localhost:3030/classes", requestOptions)
+        fetch(constant.api+constant.allClassPath, requestOptions)
             .then(res => res.json())
             .then(
                 (result) => {

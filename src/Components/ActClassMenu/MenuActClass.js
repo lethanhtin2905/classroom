@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useHistory } from 'react-router-dom'
 import './MenuActClass.css'
+import constant from '../../Utils/';
 import {
     Button,
     MenuItem,
@@ -59,7 +60,7 @@ export default function MenuActClass() {
                 className: className,
                 desc: desc,
             }
-            fetch('http://localhost:3030/classes', {
+            fetch(constant.api+constant.allClassPath, {
                 method: 'POST',
                 headers: Object.assign({
                     'Content-Type': 'application/json'

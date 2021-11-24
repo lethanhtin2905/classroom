@@ -1,4 +1,4 @@
-//  const api = 'https://classroom-api-18120595.herokuapp.com';
+// const api = 'https://midtern-18120595-api.herokuapp.com';
 const api = 'http://localhost:3030'
 
 // Class
@@ -8,6 +8,7 @@ const api = 'http://localhost:3030'
  const userPath = '/users';
  const logInPath = '/logIn';
  const signUpPath = '/signUp';
+ const invitedPath = '/invited';
  const authGooglePath = '/auth/google'
 const logInWithGoogle = '/logInWithGoogle';
 const authFbPath = '/auth/facebook'
@@ -34,6 +35,7 @@ export default {
     authFbPath,
     logInWithFacebook,
     updateProfilePath,
+    invitedPath,
     // 
     queryParams
 }

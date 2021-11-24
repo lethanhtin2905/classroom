@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
 import "./Members.css";
+import constant from '../../Utils'
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import Divider from '@mui/material/Divider';
@@ -31,7 +32,7 @@ export default function Members(props) {
             method: 'GET',
             headers: authHeader(),
         };
-        fetch(`http://localhost:3030/classes/${currentClass._id}/user`, requestOptions)
+        fetch(constant.api+constant.allClassPath+`${currentClass._id}`+constant.userPath, requestOptions)
             .then(res => res.json())
             .then(
                 (result) => {

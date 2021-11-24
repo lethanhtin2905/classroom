@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useHistory } from 'react-router-dom'
 import './Invited.css'
+import constant from '../../Utils'
 import {
     Button,
     MenuItem,
@@ -53,7 +54,7 @@ export default function Invited(props) {
                 email: email,
                 role: role
             }
-            fetch(`http://localhost:3030/classes/${currentClass._id}/invited`, {
+            fetch(constant.api+constant.allClassPath+`/${currentClass._id}` +constant.invitedPath, {
                 method: 'POST',
                 headers: Object.assign({
                     'Content-Type': 'application/json'
