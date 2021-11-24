@@ -18,13 +18,8 @@ export default function Members(props) {
     const [currentClass, setCurrentClass] = useState(props.currentClass);
     const listUser = currentClass.userList;
     const [users, setUsers] = useState([]);
-    // const [teachers, setTeacher] = useState([])
-    // const [students, setStudent] = useState([])
     let teachers = [];
     let students = []
-
-    // localStorage.setItem("teachers", JSON.stringify([]));
-    // localStorage.setItem("students", JSON.stringify([]));
 
     let checkCreateBy = false;
     if(currentClass.createBy._id === currentUser._id){
