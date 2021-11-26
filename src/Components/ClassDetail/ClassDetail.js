@@ -39,7 +39,7 @@ export default function ClassDetail(props) {
             method: 'GET',
             headers: authHeader(),
         };
-        fetch(constant.api+constant.allClassPath`${id}`, requestOptions)
+        fetch(constant.api+constant.allClassPath+`/${id}`, requestOptions)
             .then(res => res.json())
             .then(
                 (result) => {

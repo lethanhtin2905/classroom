@@ -32,7 +32,7 @@ export default function Members(props) {
             method: 'GET',
             headers: authHeader(),
         };
-        fetch(constant.api+constant.allClassPath+`${currentClass._id}`+constant.userPath, requestOptions)
+        fetch(constant.api+constant.allClassPath+`/${currentClass._id}`+constant.userPath, requestOptions)
             .then(res => res.json())
             .then(
                 (result) => {
