@@ -2,19 +2,13 @@ import * as React from "react";
 import logo from '../../images/logo.png';
 import { makeStyles } from '@material-ui/core/styles';
 import './Header.css';
-import { styled, alpha } from "@mui/material/styles";
 import { Link, useHistory } from 'react-router-dom'
 import AuthService from '../../services/auth.service';
 import {
     AppBar, Box,
     Toolbar,
     Typography,
-    IconButton,
-    InputBase,
-    MenuItem,
-    Menu
 } from "@mui/material";
-import MenuIcon from '@mui/icons-material/Menu';
 import MenuActClass from '../../Components/ActClassMenu/MenuActClass'
 import ProfileMenu from '../../Components/ProfileMenu/ProfileMenu'
 

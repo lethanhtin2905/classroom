@@ -1,7 +1,9 @@
 import * as React from 'react';
 import { useHistory } from 'react-router';
+import authHeader from '../../services/auth-header';
 import AuthService from '../../services/auth.service';
-import './ProfileMenu.css'
+import './ProfileMenu.css';
+import constant from '../../Utils/index';
 import {
     Button,
     MenuItem,
@@ -14,10 +16,7 @@ import {
     Menu,
     IconButton
 } from '@mui/material';
-
 import AccountCircle from "@mui/icons-material/AccountCircle";
-import authHeader from '../../services/auth-header';
-import constant from '../../Utils/index'
 
 export default function ProfileMenu() {
     const history = useHistory();

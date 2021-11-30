@@ -1,14 +1,14 @@
 import * as React from 'react';
-import './Login.css'
 import { useState } from 'react';
-import { useHistory, Redirect } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+import AuthService from '../../services/auth.service';
+import './Login.css'
+import constant from '../../Utils/';
 import {
     Avatar,
     Button,
     CssBaseline,
     TextField,
-    FormControlLabel,
-    Checkbox,
     Link,
     Paper,
     Box,
@@ -20,11 +20,8 @@ import { GoogleLogin } from 'react-google-login';
 import FacebookLogin from 'react-facebook-login';
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { makeStyles } from '@material-ui/core/styles';
 
-// Constant && Services
-import AuthService from '../../services/auth.service';
-import constant from '../../Utils/';
+
 
 const theme = createTheme();
 

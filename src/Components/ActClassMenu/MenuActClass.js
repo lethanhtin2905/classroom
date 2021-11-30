@@ -1,5 +1,7 @@
 import * as React from 'react';
-import { useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom';
+import authHeader from '../../services/auth-header';
+import AuthService from '../../services/auth.service';
 import './MenuActClass.css'
 import constant from '../../Utils/';
 import {
@@ -15,8 +17,6 @@ import {
     IconButton
 } from '@mui/material';
 import AddIcon from "@mui/icons-material/Add";
-import authHeader from '../../services/auth-header';
-import AuthService from '../../services/auth.service';
 
 export default function MenuActClass() {
     const history = useHistory();

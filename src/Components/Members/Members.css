@@ -121,7 +121,7 @@
     margin-right: 20px;
   }
   #filled-multiline-flexible {
-    width: 50vw !important;
+    /* width: 50vw !important; */
     height: 20vh !important;
   }
   .detail__form {

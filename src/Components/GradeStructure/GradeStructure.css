@@ -1,0 +1,40 @@
+.grade-structure__item{
+    margin-top: 20px;
+    margin-left:20px !important;
+    margin-right:20px !important;
+}
+.grade-structure__container{
+    background-color: gainsboro;
+    padding-bottom: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    /* border: 1px; */
+    width: 60%;
+    margin-left:auto !important;
+    margin-right:auto !important;
+}
+
+.edit-icon:hover, .delete-icon:hover{
+    cursor: pointer;
+    color:blue;
+}
+.edit-icon {
+    margin-right: 6px;
+}
+
+.grade-structure__content{
+    font-family: "Times New Roman", Times, serif;
+    margin-top:20px;
+    font-size: 36px;
+    font-weight: bold;
+    color: blue;
+    padding: 10px;
+    padding-top: 20px;
+    text-align: center;
+}
+
+.btn-add{
+    margin-top: 20px;
+    margin-bottom: 0px;
+    text-align: center;
+}

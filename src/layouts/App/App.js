@@ -15,11 +15,8 @@ import Header from '../Header/Header';
 import DashBoard from '../../Components/DashBoard/DashBoard';
 import LogIn from '../../Components/Login/Login';
 import SignUp from '../../Components/SignUp/SignUp';
-import Loading from '../Loading';
-import Redirecting from '../../Components/Redirecting';
-import ClassDetail from '../../Components/ClassDetail/ClassDetail'
-// import {createHashHistory} from 'history';
-// const hashHistory = createHashHistory({ basename: "" });
+import ClassDetail from '../../Components/ClassDetail/ClassDetail';
+import GradeStructure from '../../Components/GradeStructure/GradeStructure'
 
 function App() {
 	const [isLoading, setIsLoading] = useState(false);
@@ -39,6 +36,10 @@ function App() {
 						<Header />
 						<DashBoard setIsLoading={setIsLoading} />
 					</Route>
+					<Route path="/:id/drag">
+						<Header />
+						<GradeStructure setIsLoading={setIsLoading}/>
+					</Route>
 					<Route path="/:id">
 						<Header />
 						<ClassDetail setIsLoading={setIsLoading}/>
@@ -49,9 +50,7 @@ function App() {
 					<Route path="/:id/invited">
 						<Redirect to="/:id" />
 					</Route>
-					<Route path="/redirect/:authType/:ID">
-						<Redirecting />
-					</Route>
+					
 				</Switch>
 			</Router>
 		</React.Fragment>

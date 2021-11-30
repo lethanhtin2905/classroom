@@ -1,12 +1,14 @@
-import { Avatar, Button, TextField } from "@material-ui/core";
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router";
-import { useHistory, Link } from 'react-router-dom'
-import "./ClassDetail.css";
-import constant from '../../Utils'
+import { useHistory } from 'react-router-dom'
 import authHeader from "../../services/auth-header"
 import AuthService from "../../services/auth.service"
+import "./ClassDetail.css";
+import constant from '../../Utils'
+import { Avatar, Button, TextField } from "@material-ui/core";
 import Members from "../Members/Members";
+import Posts from "../Posts/Posts";
+
 
 export default function ClassDetail(props) {
     const history = useHistory();
@@ -17,34 +19,26 @@ export default function ClassDetail(props) {
     }
 
     const { id } = useParams();
-    const [showInput, setShowInput] = useState(false);
-    const [inputValue, setInput] = useState("");
-    const [image, setImage] = useState(null);
     const [currentClass, setCurrentClass] = useState({});
     const [createBy, setCreateBy] = useState({});
-    const [posts, setPosts] = useState(true)
+    const [posts, setPosts] = useState(false)
     const [members, setMembers] = useState(false)
     const [grades, setGrades] = useState(false)
 
-    const handleChange = (e) => {
-        if (e.target.files[0]) {
-            setImage(e.target.files[0]);
-        }
-    };
-
-    const handleUpload = () => { }
 
     useEffect(() => {
+        setCurrentClass({})
         const requestOptions = {
             method: 'GET',
             headers: authHeader(),
         };
-        fetch(constant.api+constant.allClassPath+`/${id}`, requestOptions)
+        fetch(constant.api + constant.allClassPath + `/${id}`, requestOptions)
             .then(res => res.json())
             .then(
                 (result) => {
                     setCurrentClass(result);
                     setCreateBy(result.createBy);
+                    setPosts(true);
                     props.setIsLoading(false);
                 },
                 (error) => {
@@ -52,8 +46,8 @@ export default function ClassDetail(props) {
                 }
             )
 
-        return () => {}
-    },[])
+        return () => { }
+    }, [])
 
     return (
         <div className="detail">
@@ -101,69 +95,9 @@ export default function ClassDetail(props) {
                         </button>
                     </span>
                 </div>
-
-                {/* Posts in class */}
-                {posts?(<div className="detail__announce">
-
-                    <div className="detail__status">
-                        <p>Class Code</p>
-                        <p className="detail__subText">{currentClass.classID}</p>
-                    </div>
-
-                    <div className="detail__announcements">
-                        <div className="detail__announcementsWrapper">
-                            <div className="detail__ancContent">
-                                {showInput ? (
-                                    <div className="detail__form">
-                                        <TextField
-                                            id="filled-multiline-flexible"
-                                            multiline
-                                            label="Announce Something to class"
-                                            variant="filled"
-                                            value={inputValue}
-                                            onChange={(e) => setInput(e.target.value)}
-                                        />
-                                        <div className="detail__buttons">
-                                            <input
-                                                onChange={handleChange}
-                                                variant="outlined"
-                                                color="primary"
-                                                type="file"
-                                            />
-
-                                            <div>
-                                                <Button onClick={() => setShowInput(false)}>
-                                                    Cancel
-                                                </Button>
-
-                                                <Button
-                                                    onClick={handleUpload}
-                                                    color="primary"
-                                                    variant="contained"
-                                                >
-                                                    Post
-                                                </Button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                ) : (
-                                    <div
-                                        className="detail__wrapper100"
-                                        onClick={() => setShowInput(true)}
-                                    >
-                                        <Avatar />
-                                        <div>Announce Something to class</div>
-                                    </div>
-                                )}
-                            </div>
-                        </div>
-                        {/* <Announcment classData={classData} /> */}
-                    </div>
-                </div>):<div></div>}
-
-                {/* Members of class */}
-
-                {members?<Members currentClass={currentClass}> </Members>:<div></div>}
+                {/* <Posts currentClass={currentClass}> </Posts> */}
+                {posts ? <Posts currentClass={currentClass}> </Posts> : <div></div>}
+                {members ? <Members currentClass={currentClass}> </Members> : <div></div>}
             </div>
         </div>
     );

@@ -1,8 +1,9 @@
+import { useEffect, useState } from 'react';
+import { useHistory, Link } from "react-router-dom";
+import authHeader from '../../services/auth-header';
+import AuthService from '../../services/auth.service';
 import './DashBoard.css'
 import constant from '../../Utils'
-import { useHistory, Link } from "react-router-dom";
-
-import { useEffect, useState } from 'react';
 import {
     Grid,
     Box,
@@ -14,9 +15,6 @@ import {
     Button
 } from '@mui/material';
 
-import authHeader from '../../services/auth-header';
-import AuthService from '../../services/auth.service';
-
 function Dashboard(props) {
     const history = useHistory();
     const currentUser = AuthService.getCurrentUser()
@@ -27,6 +25,7 @@ function Dashboard(props) {
     const [classes, setClasses] = useState([]);
 
     useEffect(() => {
+        setClasses([]);
         const requestOptions = {
             method: 'GET',
             headers: authHeader(),
@@ -44,7 +43,7 @@ function Dashboard(props) {
             )
 
         return () => {}
-    })
+    }, [])
 
     return (
         <Box sx={{ flexGrow: 1 }} className='box'>
