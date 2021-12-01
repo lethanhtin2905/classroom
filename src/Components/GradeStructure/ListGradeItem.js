@@ -59,9 +59,9 @@ const ListItem = ({ item, provided, snapshot }) => {
                 {...provided.draggableProps}
                 {...provided.dragHandleProps}
             >
-                <CardHeader>ABC</CardHeader>
+                <CardHeader>{item.name}</CardHeader>
                 <CardFooter>
-                    <span>{item.content}</span>
+                    <span>{item.grade}</span>
                     <Author>
                         <div className="edit-icon">
                             <EditIcon ></EditIcon>
@@ -84,9 +84,7 @@ const ListItem = ({ item, provided, snapshot }) => {
                                 </DialogContent>
                                 <DialogActions>
                                     <Button onClick={handleClose}>Cancel</Button>
-                                    <Button onClick={handleClose} autoFocus>
-                                        Delete
-                                    </Button>
+                                    <Button onClick={handleClose} autoFocus>Delete</Button>
                                 </DialogActions>
                             </Dialog>
                         </div>

@@ -24,20 +24,27 @@ export default function ClassDetail(props) {
     const [posts, setPosts] = useState(false)
     const [members, setMembers] = useState(false)
     const [grades, setGrades] = useState(false)
-
+    const [users, setUsers] = useState([])
+    // let
+    const [isCreateBy, setIsCreateBy] = useState()
 
     useEffect(() => {
         setCurrentClass({})
-        const requestOptions = {
+        setUsers([]);
+        setIsCreateBy(false);
+        const requestOptions1 = {
             method: 'GET',
             headers: authHeader(),
         };
-        fetch(constant.api + constant.allClassPath + `/${id}`, requestOptions)
+        fetch(constant.api + constant.allClassPath + `/${id}`, requestOptions1)
             .then(res => res.json())
             .then(
                 (result) => {
                     setCurrentClass(result);
                     setCreateBy(result.createBy);
+                    if (createBy._id == currentUser._id) {
+                        setIsCreateBy(true)
+                    }
                     setPosts(true);
                     props.setIsLoading(false);
                 },
@@ -46,6 +53,19 @@ export default function ClassDetail(props) {
                 }
             )
 
+        const requestOptions2 = {
+            method: 'GET',
+            headers: authHeader(),
+        };
+        fetch(constant.api + constant.allClassPath + `/${id}` + constant.userPath, requestOptions2)
+            .then(res => res.json())
+            .then(
+                (result) => {
+                    setUsers(result);
+                },
+                (error) => {
+                }
+            )
         return () => { }
     }, [])
 
@@ -97,7 +117,7 @@ export default function ClassDetail(props) {
                 </div>
                 {/* <Posts currentClass={currentClass}> </Posts> */}
                 {posts ? <Posts currentClass={currentClass}> </Posts> : <div></div>}
-                {members ? <Members currentClass={currentClass}> </Members> : <div></div>}
+                {members ? <Members currentClass={currentClass} users={users} isCreateBy={isCreateBy}> </Members> : <div></div>}
             </div>
         </div>
     );

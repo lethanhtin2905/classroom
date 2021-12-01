@@ -228,6 +228,7 @@
 }
 .structure-content__icon{
   height: 24px;
+  color: black;
   align-items: center;
 }
 .structure-content__icon:hover {

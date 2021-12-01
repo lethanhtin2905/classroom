@@ -1,5 +1,5 @@
-const api = 'https://midtern-18120595-api.herokuapp.com';
-// const api = 'http://localhost:3030'
+// const api = 'https://midtern-18120595-api.herokuapp.com';
+const api = 'http://localhost:3030'
 
 // Class
 const allClassPath = '/classes';

@@ -17,7 +17,8 @@ export default function Members(props) {
     const currentUser = AuthService.getCurrentUser()
     const [currentClass, setCurrentClass] = useState(props.currentClass);
     const listUser = currentClass.userList;
-    const [users, setUsers] = useState([]);
+    const [users, setUsers] = useState(props.users);
+    const [isCreateBy, setIsCreateBy] = useState (props.isCreateBy)
     let teachers = [];
     let students = []
 
@@ -25,25 +26,6 @@ export default function Members(props) {
     if (currentClass.createBy._id === currentUser._id) {
         checkCreateBy = true;
     }
-
-    useEffect(() => {
-        setUsers([]);
-        const requestOptions = {
-            method: 'GET',
-            headers: authHeader(),
-        };
-        fetch(constant.api + constant.allClassPath + `/${currentClass._id}` + constant.userPath, requestOptions)
-            .then(res => res.json())
-            .then(
-                (result) => {
-                    setUsers(result);
-                },
-                (error) => {
-                }
-            )
-
-        return () => { }
-    }, [])
 
     for (var i = 0; i < listUser.length; i++) {
         for (var j = 0; j < users.length; j++) {

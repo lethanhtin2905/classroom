@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
+import {Link} from 'react-router-dom';
 import authHeader from "../../services/auth-header"
 import AuthService from "../../services/auth.service"
 import "./Posts.css";
+import constant from '../../Utils';
 import { Avatar, Button, TextField } from "@material-ui/core";
 import EditIcon from '@mui/icons-material/Edit';
 
@@ -10,11 +12,39 @@ export default function Posts(props) {
 
     const currentClass = props.currentClass;
 
-    console.log(currentClass)
+    let checkCreateBy = false;
+    if (currentClass.createBy._id === currentUser._id) {
+        checkCreateBy = true;
+    }
 
     const [showInput, setShowInput] = useState(false);
     const [inputValue, setInput] = useState("");
     const [image, setImage] = useState(null);
+    const [gradeStructure, setGradeStructure] = useState([])
+
+    useEffect(() => {
+        setGradeStructure([]);
+        const requestOptions = {
+            method: 'GET',
+            headers: authHeader(),
+        };
+        fetch(constant.api + constant.allClassPath + `/${currentClass._id}` + constant.userPath, requestOptions)
+            .then(res => res.json())
+            .then(
+                (result) => {
+                    setGradeStructure(result);
+                },
+                (error) => {
+                }
+            )
+
+        return () => { }
+    }, [])
+
+    // const viewGradeStructure = () => {
+
+    //     im
+    // }
 
     const handleChange = (e) => {
         if (e.target.files[0]) {
@@ -36,7 +66,11 @@ export default function Posts(props) {
                 <div className = "structure-content">
                 <div className = "structure-content__text">GRADE STRUCTURE</div>
                     <div className="structure-content__icon">
-                        <EditIcon></EditIcon>
+                        {checkCreateBy?
+                            <Link to={`/${currentClass._id}/drag`} className="structure-content__icon">
+                                <EditIcon> </EditIcon>
+                            </Link>
+                        :<div></div>}
                     </div>
                 </div>
                     

@@ -1,8 +1,18 @@
+import authHeader from "../../services/auth-header"
+import AuthService from "../../services/auth.service";
 import "./GradeStructure.css";
-import { useState } from "react";
+import constant from '../../Utils/index'
+import { useState, useEffect } from "react";
+import { useParams } from "react-router";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 import ListItem from "./ListGradeItem";
 import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField'
 
 const elements = [
     { id: "one", content: "one" },
@@ -12,16 +22,66 @@ const elements = [
 ];
 
 export default function DragAndDropList() {
-    const [items, setItems] = useState(elements);
+    const [gradeList, setGradeList] = useState([]);
+    const [open, setOpen] = useState(false);
+    const [name, setName] = useState('');
+    const [grade, setGrade] = useState('');
 
-    console.log(items)
+    const { id } = useParams();
+
+    useEffect(() => {
+        setGradeList([]);
+
+        const requestOptions1 = {
+            method: 'GET',
+            headers: authHeader(),
+        };
+        fetch(constant.api + constant.allClassPath + `/${id}` + '/grade-structure', requestOptions1)
+            .then(res => res.json())
+            .then(
+                (result) => {
+                    setGradeList(result);
+                    // setCreateBy(result.createBy);
+                    // if (createBy._id == currentUser._id) {
+                    //     setIsCreateBy(true)
+                    // }
+                    // setPosts(true);
+                    // props.setIsLoading(false);
+                },
+                (error) => {
+                    // props.setIsLoading(false)
+                }
+            )
+
+        return () => {
+        }
+    }, [])
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+
+    const onChangeName = (e) => {
+        setName(e.target.value);
+    };
+
+    const onChangeGrade = (e) => {
+        setGrade(e.target.value);
+    };
+
+    const handleAddGrade = () => {
+
+    }
+
     const onDragEnd = (result) => {
-        const newItems = Array.from(items);
+        const newItems = Array.from(gradeList);
         const [removed] = newItems.splice(result.source.index, 1);
         newItems.splice(result.destination.index, 0, removed);
-        setItems(newItems);
-        console.log(newItems)
-
+        setGradeList(newItems);
     };
 
     return (
@@ -33,13 +93,13 @@ export default function DragAndDropList() {
                 <Droppable droppableId="droppable">
                     {(provided) => (
                         <div {...provided.droppableProps} ref={provided.innerRef}>
-                            {items.map((item, index) => (
-                                <Draggable key={item.id} draggableId={item.id} index={index}>
+                            {gradeList.map((grade, index) => (
+                                <Draggable key={index} draggableId={index.toString()} index={index}>
                                     {(provided, snapshot) => (
                                         <ListItem
                                             provided={provided}
                                             snapshot={snapshot}
-                                            item={item}
+                                            item={grade}
                                         />
                                     )}
                                 </Draggable>
@@ -49,7 +109,46 @@ export default function DragAndDropList() {
                 </Droppable>
             </DragDropContext>
             <div className="btn-add">
-                <Button variant="contained">ADD</Button>
+                <Button variant="contained" onClick={handleClickOpen}>ADD</Button>
+                <Dialog
+                    open={open}
+                    onClose={handleClose}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                >
+                    <DialogTitle id="alert-dialog-title">
+                        ADD SCORE
+                    </DialogTitle>
+                    <DialogContent>
+                        <DialogContentText id="alert-dialog-description">
+                            Are you sure to remove this point column from the grade structure
+                        </DialogContentText>
+                        <TextField
+                            required={true}
+                            margin="dense"
+                            id="name"
+                            label="Name"
+                            type="name"
+                            fullWidth
+                            variant="standard"
+                            onChange={onChangeName}
+                        />
+                        <TextField
+                            required={true}
+                            margin="dense"
+                            id="grade"
+                            label="Grade"
+                            type="grade"
+                            fullWidth
+                            variant="standard"
+                            onChange={onChangeGrade}
+                        />
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={handleAddGrade}>ADD</Button>
+                        <Button onClick={handleClose} autoFocus>Cancel</Button>
+                    </DialogActions>
+                </Dialog>
             </div>
         </div>
 
