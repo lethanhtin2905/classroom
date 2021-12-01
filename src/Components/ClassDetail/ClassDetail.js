@@ -25,13 +25,16 @@ export default function ClassDetail(props) {
     const [members, setMembers] = useState(false)
     const [grades, setGrades] = useState(false)
     const [users, setUsers] = useState([])
+    const [gradeList, setGradeList] = useState([]);
+
     // let
     const [isCreateBy, setIsCreateBy] = useState()
 
     useEffect(() => {
-        setCurrentClass({})
-        setUsers([]);
-        setIsCreateBy(false);
+        // setCurrentClass({})
+        // setUsers([]);
+        // setIsCreateBy(false);
+        // setGradeList([])
         const requestOptions1 = {
             method: 'GET',
             headers: authHeader(),
@@ -64,6 +67,23 @@ export default function ClassDetail(props) {
                     setUsers(result);
                 },
                 (error) => {
+                }
+            )
+            setGradeList([]);
+
+        const requestOptions3 = {
+            method: 'GET',
+            headers: authHeader(),
+        };
+        fetch(constant.api + constant.allClassPath + `/${id}` + '/grade-structure', requestOptions3)
+            .then(res => res.json())
+            .then(
+                (result) => {
+                    setGradeList(result);
+                    // props.setIsLoading(false);
+                },
+                (error) => {
+                    // props.setIsLoading(false)
                 }
             )
         return () => { }
@@ -116,8 +136,8 @@ export default function ClassDetail(props) {
                     </span>
                 </div>
                 {/* <Posts currentClass={currentClass}> </Posts> */}
-                {posts ? <Posts currentClass={currentClass}> </Posts> : <div></div>}
-                {members ? <Members currentClass={currentClass} users={users} isCreateBy={isCreateBy}> </Members> : <div></div>}
+                {posts ? <Posts currentClass={currentClass} gradeStructure = {gradeList}> </Posts> : <div></div>}
+                {members ? <Members currentClass={currentClass} users={users}> </Members> : <div></div>}
             </div>
         </div>
     );

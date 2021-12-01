@@ -14,13 +14,6 @@ import ListItem from "./ListGradeItem";
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField'
 
-const elements = [
-    { id: "one", content: "one" },
-    { id: "two", content: "two" },
-    { id: "three", content: "three" },
-    { id: "four", content: "four" }
-];
-
 export default function DragAndDropList() {
     const [gradeList, setGradeList] = useState([]);
     const [open, setOpen] = useState(false);
@@ -30,8 +23,6 @@ export default function DragAndDropList() {
     const { id } = useParams();
 
     useEffect(() => {
-        setGradeList([]);
-
         const requestOptions1 = {
             method: 'GET',
             headers: authHeader(),
@@ -41,11 +32,6 @@ export default function DragAndDropList() {
             .then(
                 (result) => {
                     setGradeList(result);
-                    // setCreateBy(result.createBy);
-                    // if (createBy._id == currentUser._id) {
-                    //     setIsCreateBy(true)
-                    // }
-                    // setPosts(true);
                     // props.setIsLoading(false);
                 },
                 (error) => {
@@ -53,9 +39,9 @@ export default function DragAndDropList() {
                 }
             )
 
-        return () => {
-        }
-    }, [])
+        // return () => {
+        // }
+    }, [gradeList])
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -74,7 +60,33 @@ export default function DragAndDropList() {
     };
 
     const handleAddGrade = () => {
-
+        if (!name || !grade) {
+            alert("To add a class, please enter the name and grade");
+        } else {
+            const data = {
+                name: name,
+                grade: grade
+            }
+            fetch(constant.api+constant.allClassPath+`/${id}` + '/grade-structure', {
+                method: 'POST',
+                headers: Object.assign({
+                    'Content-Type': 'application/json'
+                }, authHeader()),
+                body: JSON.stringify(data),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.isSuccess) {
+                        alert('Successfully added new grade');
+                    } else {
+                        alert('Failed to added new grade');
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+            handleClose();
+        }
     }
 
     const onDragEnd = (result) => {
@@ -82,7 +94,30 @@ export default function DragAndDropList() {
         const [removed] = newItems.splice(result.source.index, 1);
         newItems.splice(result.destination.index, 0, removed);
         setGradeList(newItems);
+        console.log(newItems)
+        fetch(constant.api+constant.allClassPath+`/${id}` + '/grade-structure/arrange', {
+            method: 'POST',
+            headers: Object.assign({
+                'Content-Type': 'application/json'
+            }, authHeader()),
+            body: JSON.stringify({
+                newItems: newItems
+            }),
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.isSuccess) {
+                    console.log('Successfully added new grade');
+                } else {
+                    console.log('Failed to added new grade');
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        handleClose();
     };
+    
 
     return (
         <div className="grade-structure__container">
@@ -131,6 +166,8 @@ export default function DragAndDropList() {
                             type="name"
                             fullWidth
                             variant="standard"
+                            error={name === ""}
+                            helperText={name === "" ? 'Enter name' : ' '}
                             onChange={onChangeName}
                         />
                         <TextField
@@ -141,6 +178,9 @@ export default function DragAndDropList() {
                             type="grade"
                             fullWidth
                             variant="standard"
+                            error={grade !== '0' && grade !== '1' && grade !== '2' && grade !== '3' && grade !== '4' && grade !== '5' && grade !== '6' && grade !== '7' && grade !== '8' && grade !== '9'
+                                && grade !== 0 && grade !== 1 && grade !== 2 && grade !== 3 && grade !== 4 && grade !== 5 && grade !== 6 && grade !== 7 && grade !== 8 && grade !== 9}
+                            helperText={grade === "" ? 'Enter grade' : ' '}
                             onChange={onChangeGrade}
                         />
                     </DialogContent>

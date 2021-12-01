@@ -18,7 +18,7 @@ export default function Members(props) {
     const [currentClass, setCurrentClass] = useState(props.currentClass);
     const listUser = currentClass.userList;
     const [users, setUsers] = useState(props.users);
-    const [isCreateBy, setIsCreateBy] = useState (props.isCreateBy)
+    // const [isCreateBy, setIsCreateBy] = useState (props.isCreateBy)
     let teachers = [];
     let students = []
 

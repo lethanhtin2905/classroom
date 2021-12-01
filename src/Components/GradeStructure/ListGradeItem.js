@@ -61,7 +61,7 @@ const ListItem = ({ item, provided, snapshot }) => {
             >
                 <CardHeader>{item.name}</CardHeader>
                 <CardFooter>
-                    <span>{item.grade}</span>
+                    <span>{item._id}</span>
                     <Author>
                         <div className="edit-icon">
                             <EditIcon ></EditIcon>

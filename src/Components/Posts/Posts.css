@@ -235,4 +235,8 @@
   cursor: pointer;
   color: #4285f4;
 }
-
+.grade__detail{
+  margin-top: 1rem;
+  color: black;
+  font-weight: 400;
+}

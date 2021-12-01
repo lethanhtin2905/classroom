@@ -25,7 +25,7 @@ function Dashboard(props) {
     const [classes, setClasses] = useState([]);
 
     useEffect(() => {
-        setClasses([]);
+        // setClasses([]);
         const requestOptions = {
             method: 'GET',
             headers: authHeader(),
@@ -43,7 +43,7 @@ function Dashboard(props) {
             )
 
         return () => {}
-    }, [])
+    }, [classes])
 
     return (
         <Box sx={{ flexGrow: 1 }} className='box'>

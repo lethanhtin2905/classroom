@@ -11,6 +11,7 @@ export default function Posts(props) {
     const currentUser = AuthService.getCurrentUser()
 
     const currentClass = props.currentClass;
+    const gradeStructure = props.gradeStructure;
 
     let checkCreateBy = false;
     if (currentClass.createBy._id === currentUser._id) {
@@ -20,31 +21,26 @@ export default function Posts(props) {
     const [showInput, setShowInput] = useState(false);
     const [inputValue, setInput] = useState("");
     const [image, setImage] = useState(null);
-    const [gradeStructure, setGradeStructure] = useState([])
+    // const [gradeStructure, setGradeStructure] = useState([])
 
-    useEffect(() => {
-        setGradeStructure([]);
-        const requestOptions = {
-            method: 'GET',
-            headers: authHeader(),
-        };
-        fetch(constant.api + constant.allClassPath + `/${currentClass._id}` + constant.userPath, requestOptions)
-            .then(res => res.json())
-            .then(
-                (result) => {
-                    setGradeStructure(result);
-                },
-                (error) => {
-                }
-            )
+    // useEffect(() => {
+    //     setGradeStructure([]);
+    //     const requestOptions = {
+    //         method: 'GET',
+    //         headers: authHeader(),
+    //     };
+    //     fetch(constant.api + constant.allClassPath + `/${currentClass._id}` + constant.userPath, requestOptions)
+    //         .then(res => res.json())
+    //         .then(
+    //             (result) => {
+    //                 setGradeStructure(result);
+    //             },
+    //             (error) => {
+    //             }
+    //         )
 
-        return () => { }
-    }, [])
-
-    // const viewGradeStructure = () => {
-
-    //     im
-    // }
+    //     return () => { }
+    // }, [])
 
     const handleChange = (e) => {
         if (e.target.files[0]) {
@@ -73,10 +69,9 @@ export default function Posts(props) {
                         :<div></div>}
                     </div>
                 </div>
-                    
-                    <p className="detail__subText">{currentClass.classID}</p>
-                    <p className="detail__subText">{currentClass.classID}</p>
-                    <p className="detail__subText">{currentClass.classID}</p>
+                    {gradeStructure.length ? (gradeStructure.map((grade, index) => (
+                        <p key={index} className="grade__detail">{grade.name}: {grade.grade} point</p>)))
+                    :(<p className="grade__detail"> none </p>)}
 
                 </div>
             </div>
