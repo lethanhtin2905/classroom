@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import authHeader from "../../services/auth-header"
 import AuthService from "../../services/auth.service";
 import "./GradeStructure.css";
@@ -12,7 +13,8 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import ListItem from "./ListGradeItem";
 import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField'
+import TextField from '@mui/material/TextField';
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 
 export default function DragAndDropList() {
     const [gradeList, setGradeList] = useState([]);
@@ -23,6 +25,7 @@ export default function DragAndDropList() {
     const { id } = useParams();
 
     useEffect(() => {
+        // setGradeList([])
         const requestOptions1 = {
             method: 'GET',
             headers: authHeader(),
@@ -67,7 +70,7 @@ export default function DragAndDropList() {
                 name: name,
                 grade: grade
             }
-            fetch(constant.api+constant.allClassPath+`/${id}` + '/grade-structure', {
+            fetch(constant.api + constant.allClassPath + `/${id}` + '/grade-structure', {
                 method: 'POST',
                 headers: Object.assign({
                     'Content-Type': 'application/json'
@@ -93,9 +96,7 @@ export default function DragAndDropList() {
         const newItems = Array.from(gradeList);
         const [removed] = newItems.splice(result.source.index, 1);
         newItems.splice(result.destination.index, 0, removed);
-        setGradeList(newItems);
-        console.log(newItems)
-        fetch(constant.api+constant.allClassPath+`/${id}` + '/grade-structure/arrange', {
+        fetch(constant.api + constant.allClassPath + `/${id}` + '/grade-structure/arrange', {
             method: 'POST',
             headers: Object.assign({
                 'Content-Type': 'application/json'
@@ -107,23 +108,25 @@ export default function DragAndDropList() {
             .then(response => response.json())
             .then(data => {
                 if (data.isSuccess) {
-                    console.log('Successfully added new grade');
                 } else {
-                    console.log('Failed to added new grade');
                 }
             })
             .catch((error) => {
                 console.error('Error:', error);
             });
-        handleClose();
+        setGradeList(newItems);
     };
-    
+
+    const handleBack = () => {
+
+    }
 
     return (
         <div className="grade-structure__container">
             <div className="grade-structure__content">
                 GRADE STRUCTURE
             </div>
+
             <DragDropContext onDragEnd={onDragEnd} >
                 <Droppable droppableId="droppable">
                     {(provided) => (
@@ -135,16 +138,29 @@ export default function DragAndDropList() {
                                             provided={provided}
                                             snapshot={snapshot}
                                             item={grade}
-                                        />
+                                            id={id}>
+
+                                        </ListItem>
                                     )}
                                 </Draggable>
                             ))}
+                            {provided.placeholder}
                         </div>
                     )}
                 </Droppable>
             </DragDropContext>
             <div className="btn-add">
-                <Button variant="contained" onClick={handleClickOpen}>ADD</Button>
+                <span className="btnBack">
+                    <Button variant="outlined" >
+                        <Link to={`/${id}`} className="text-link">
+                            BACK TO CLASS
+                        </Link>
+                    </Button>
+                </span>
+                <span className="btnAdd">
+                    <Button variant="contained" onClick={handleClickOpen}>ADD ASSIGNMENT</Button>
+                </span>
+
                 <Dialog
                     open={open}
                     onClose={handleClose}

@@ -63,7 +63,7 @@ export default function Posts(props) {
                 <div className = "structure-content__text">GRADE STRUCTURE</div>
                     <div className="structure-content__icon">
                         {checkCreateBy?
-                            <Link to={`/${currentClass._id}/drag`} className="structure-content__icon">
+                            <Link to={`/${currentClass._id}/grade-structure`} className="structure-content__icon">
                                 <EditIcon> </EditIcon>
                             </Link>
                         :<div></div>}

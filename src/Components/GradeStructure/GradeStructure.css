@@ -38,3 +38,16 @@
     margin-bottom: 0px;
     text-align: center;
 }
+
+.btnBack{
+    margin-right: 5px;
+}
+
+.text-link{
+    text-decoration: none !important;
+    color: black;
+}
+
+.btnAdd{
+    margin-left: 5px;
+}

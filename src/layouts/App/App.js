@@ -36,7 +36,7 @@ function App() {
 						<Header />
 						<DashBoard setIsLoading={setIsLoading} />
 					</Route>
-					<Route path="/:id/drag">
+					<Route path="/:id/grade-structure">
 						<Header />
 						<GradeStructure setIsLoading={setIsLoading}/>
 					</Route>

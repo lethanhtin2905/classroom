@@ -42,7 +42,8 @@ function Dashboard(props) {
                 }
             )
 
-        return () => {}
+        return () => {
+        }
     }, [classes])
 
     return (
