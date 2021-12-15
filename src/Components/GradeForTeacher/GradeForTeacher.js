@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-undef */
 import * as React from 'react';
 import { useEffect, useState } from 'react';
 import AuthService from "../../services/auth.service"
@@ -6,6 +7,7 @@ import "./GradeForTeacher.css";
 import constant from '../../Utils';
 import { CSVLink, CSVDownload } from 'react-csv';
 import * as XLSX from 'xlsx';
+import {ReactFileReader } from 'react-file-reader';
 import DataTable from 'react-data-table-component';
 import {
     ListItem,
@@ -36,8 +38,8 @@ export default function GradeForTeacher(props) {
         { Name: 'Tín lê', StudentId: '18120595' }
     ]
     const headers = [
-        { label: 'Họ tên', key: 'Name' },
-        { label: 'MSSV', key: 'StudentId' },
+        { label: 'Name', key: 'Name' },
+        { label: 'StudentId', key: 'StudentId' },
     ]
 
     // Upload
@@ -84,6 +86,15 @@ export default function GradeForTeacher(props) {
         setColumns(columns);
     }
 
+    const handleFiles = files => {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            // Use reader.result
+            alert(reader.result)
+        }
+        reader.readAsText(files[0]);
+    }
+
     // handle file upload
     const handleFileUpload = e => {
         const file = e.target.files[0];
@@ -115,7 +126,7 @@ export default function GradeForTeacher(props) {
                 <h3>Read CSV file in React - <a href="https://www.cluemediator.com" target="_blank" rel="noopener noreferrer">Clue Mediator</a></h3>
                 <input
                     type="file"
-                    accept=".csv,.xlsx,.xls"
+                    accept=".csv"
                     onChange={handleFileUpload}
                 />
                 <DataTable
@@ -125,6 +136,10 @@ export default function GradeForTeacher(props) {
                     data={data}
                 />
             </div>
+{/* 
+            <ReactFileReader handleFiles={()=>handleFiles} fileTypes={'.csv'}>
+                <button className='btn'>Upload</button>
+            </ReactFileReader> */}
         </div>
     );
 }
