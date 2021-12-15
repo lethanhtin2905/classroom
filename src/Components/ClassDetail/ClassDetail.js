@@ -7,6 +7,7 @@ import "./ClassDetail.css";
 import constant from '../../Utils'
 import { Avatar, Button, TextField } from "@material-ui/core";
 import Members from "../Members/Members";
+import GradeForTeacher from "../GradeForTeacher/GradeForTeacher";
 import Posts from "../Posts/Posts";
 
 
@@ -31,10 +32,6 @@ export default function ClassDetail(props) {
     const [isCreateBy, setIsCreateBy] = useState()
 
     useEffect(() => {
-        // setCurrentClass({})
-        // setUsers([]);
-        // setIsCreateBy(false);
-        // setGradeList([])
         const requestOptions1 = {
             method: 'GET',
             headers: authHeader(),
@@ -135,9 +132,9 @@ export default function ClassDetail(props) {
                         </button>
                     </span>
                 </div>
-                {/* <Posts currentClass={currentClass}> </Posts> */}
                 {posts ? <Posts currentClass={currentClass} gradeStructure = {gradeList}> </Posts> : <div></div>}
                 {members ? <Members currentClass={currentClass} users={users}> </Members> : <div></div>}
+                {grades ? <GradeForTeacher currentClass={currentClass} users={users} gradeStructure = {gradeList}> </GradeForTeacher> : <div></div>}
             </div>
         </div>
     );

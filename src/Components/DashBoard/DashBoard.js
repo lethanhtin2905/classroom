@@ -25,7 +25,6 @@ function Dashboard(props) {
     const [classes, setClasses] = useState([]);
 
     useEffect(() => {
-        // setClasses([]);
         const requestOptions = {
             method: 'GET',
             headers: authHeader(),

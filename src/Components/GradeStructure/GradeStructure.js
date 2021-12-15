@@ -14,7 +14,6 @@ import DialogTitle from '@mui/material/DialogTitle';
 import ListItem from "./ListGradeItem";
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 
 export default function DragAndDropList() {
     const [gradeList, setGradeList] = useState([]);
@@ -25,7 +24,6 @@ export default function DragAndDropList() {
     const { id } = useParams();
 
     useEffect(() => {
-        // setGradeList([])
         const requestOptions1 = {
             method: 'GET',
             headers: authHeader(),
@@ -93,7 +91,9 @@ export default function DragAndDropList() {
     }
 
     const onDragEnd = (result) => {
+        console.log(result)
         const newItems = Array.from(gradeList);
+        // setGradeList(newItems);
         const [removed] = newItems.splice(result.source.index, 1);
         newItems.splice(result.destination.index, 0, removed);
         fetch(constant.api + constant.allClassPath + `/${id}` + '/grade-structure/arrange', {
@@ -114,12 +114,25 @@ export default function DragAndDropList() {
             .catch((error) => {
                 console.error('Error:', error);
             });
-        setGradeList(newItems);
+
+        const requestOptions1 = {
+            method: 'GET',
+            headers: authHeader(),
+        };
+        fetch(constant.api + constant.allClassPath + `/${id}` + '/grade-structure', requestOptions1)
+            .then(res => res.json())
+            .then(
+                (result) => {
+                    setGradeList(result);
+                    // props.setIsLoading(false);
+                },
+                (error) => {
+                    // props.setIsLoading(false)
+                }
+            )
+        console.log(gradeList)
     };
 
-    const handleBack = () => {
-
-    }
 
     return (
         <div className="grade-structure__container">
