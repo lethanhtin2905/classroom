@@ -7,7 +7,7 @@ import "./ClassDetail.css";
 import constant from '../../Utils'
 import { Avatar, Button, TextField } from "@material-ui/core";
 import Members from "../Members/Members";
-import GradeForTeacher from "../GradeForTeacher/GradeForTeacher";
+import GradeForTeacher from "../GradeForStudent copy/GradeForTeacher";
 import Posts from "../Posts/Posts";
 
 
