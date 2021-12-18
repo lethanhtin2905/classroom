@@ -14,6 +14,7 @@ export default function GradeForTeacher(props) {
     const [currentClass, setCurrentClass] = useState(props.currentClass);
     const listUser = currentClass.userList;
     const { gradeStructure } = props;
+    const gradeDataDefault = gradeStructure;
     const listDefault = []
 
     let checkCreateBy = false;
@@ -28,10 +29,32 @@ export default function GradeForTeacher(props) {
         { label: 'Name', key: 'Name' },
         { label: 'StudentId', key: 'StudentId' },
     ]
+    for (var i = 0; i < gradeStructure.length; i++) {
+        gradeDataDefault[i].grade = 0;
+    }
 
     //Upload
     const [columns, setColumns] = useState([]);
     const [data, setData] = useState([]);
+
+    useEffect(()=>{
+        const requestOptions1 = {
+            method: 'GET',
+            headers: authHeader(),
+        };
+        fetch(constant.api + constant.allClassPath + `/${currentClass._id}` + '/grade', requestOptions1)
+            .then(res => res.json())
+            .then(
+                (result) => {
+                    console.log(result)
+                    setData(result);
+                    // props.setIsLoading(false);
+                },
+                (error) => {
+                    // props.setIsLoading(false)
+                }
+            )
+    },[])
 
     // process CSV data
     const processData = dataString => {
@@ -69,19 +92,27 @@ export default function GradeForTeacher(props) {
             selector: c,
         }));
 
-        for (let i = 0; i < gradeStructure.length; i++) {
+        for (let i = 0; i < listDefault.length; i++) {
             listDefault[i] = {
                 name: listDefault[i].Name,
                 studentId: listDefault[i].StudentId,
-                grade: gradeStructure,
+                grade: gradeDataDefault,
             }
         }
 
         const data = {
             data: listDefault,
         }
+
+        updateDataApi(data)
+
+        setData(listDefault);
+        setColumns(columns);
+    }
+
+    const updateDataApi = (data) => {
         fetch(constant.api + constant.allClassPath + `/${currentClass._id}` + '/grade', {
-            method: 'POST',
+            method: 'PUT',
             headers: Object.assign({
                 'Content-Type': 'application/json'
             }, authHeader()),
@@ -99,9 +130,6 @@ export default function GradeForTeacher(props) {
             .catch((error) => {
                 console.error('Error:', error);
             });
-
-        setData(listDefault);
-        setColumns(columns);
     }
 
     // handle file upload
@@ -122,10 +150,6 @@ export default function GradeForTeacher(props) {
         reader.readAsBinaryString(file);
     }
 
-    const uploadDefaultApi = () => {
-        
-    }
-
     return (
         <div>
             <div className='download-btn'>
@@ -141,7 +165,7 @@ export default function GradeForTeacher(props) {
             </div>
             <br />
             <div>
-                Upload student list:  
+                Upload student list:
                 <input
                     type="file"
                     accept=".csv"
@@ -149,16 +173,18 @@ export default function GradeForTeacher(props) {
                 />
             </div>
             <br />
-            {data.length !== 0 ?
-                (<table className="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th className='columns'>Name</th>
-                            {gradeStructure.map((column, index) => {
-                                return (
-                                    <th key={index} className='columns'>
-                                        {column.name}
-                                        {/* <div>
+            {gradeStructure.length === 0 ? <div>Please add grade structure</div>
+                : <div>
+                    {data.length !== 0 ?
+                        (<table className="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th className='columns'>Name</th>
+                                    {gradeStructure.map((column, index) => {
+                                        return (
+                                            <th key={index} className='columns'>
+                                                {column.name}
+                                                {/* <div>
                                             <CSVLink data={dataa} headers={headers}
                                                 filename={"my-file.csv"}
                                                 className="btn btn-primary"
@@ -171,31 +197,32 @@ export default function GradeForTeacher(props) {
                                                 onChange={handleFileUpload}
                                             />
                                         </div> */}
-                                    </th>
-                                )
-                            })}
-                            <th className='columns'>Total</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {data.map((row, index) => {
-                            return (
-                                <tr key={index}>
-                                    <td className="name">{row.name}</td>
-                                    {row.grade.map((column, index) => {
-                                        return (
-                                            <td key={index}><input type='number' className="grade" step='1' min='1' value={column.grade} /></td>
-
+                                            </th>
                                         )
                                     })}
-                                    <td className="name"></td>
-
+                                    <th className='columns'>Total</th>
                                 </tr>
-                            )
-                        })}
-                    </tbody>
-                </table>)
-                : <div></div>
+                            </thead>
+                            <tbody>
+                                {data.map((row, index) => {
+                                    return (
+                                        <tr key={index}>
+                                            <td className="name">{row.name}</td>
+                                            {row.grade.map((column, index) => {
+                                                return (
+                                                    <td key={index}><input type='number' className="grade" step='1' min='1' value={column.grade} /></td>
+                                                )
+                                            })}
+                                            <td className="name"></td>
+
+                                        </tr>
+                                    )
+                                })}
+                            </tbody>
+                        </table>)
+                        : <div></div>
+                    }
+                </div>
             }
             <br />
             <br />
