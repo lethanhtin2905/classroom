@@ -12,9 +12,10 @@ import FileDownloadIcon from '@mui/icons-material/FileDownload';
 export default function GradeForTeacher(props) {
     const currentUser = AuthService.getCurrentUser()
     const [currentClass, setCurrentClass] = useState(props.currentClass);
+    const [gradeOfColum, setGradeOfColum] = useState()
     const listUser = currentClass.userList;
     const { gradeStructure } = props;
-    const gradeDataDefault = gradeStructure;
+    const gradeDataDefault = [];
     const listDefault = []
 
     let checkCreateBy = false;
@@ -30,7 +31,8 @@ export default function GradeForTeacher(props) {
         { label: 'StudentId', key: 'StudentId' },
     ]
     for (var i = 0; i < gradeStructure.length; i++) {
-        gradeDataDefault[i].grade = 0;
+        gradeDataDefault.push(gradeStructure[i])
+        gradeDataDefault[i].grade=0
     }
 
     //Upload
@@ -150,6 +152,13 @@ export default function GradeForTeacher(props) {
         reader.readAsBinaryString(file);
     }
 
+    const changeGrade = (e) => {
+        const v = e.target.value
+        console.log(v)
+        console.log(e.target.name)
+        console.log(e.target.id)
+    }
+
     return (
         <div>
             <div className='download-btn'>
@@ -183,20 +192,8 @@ export default function GradeForTeacher(props) {
                                     {gradeStructure.map((column, index) => {
                                         return (
                                             <th key={index} className='columns'>
-                                                {column.name}
-                                                {/* <div>
-                                            <CSVLink data={dataa} headers={headers}
-                                                filename={"my-file.csv"}
-                                                className="btn btn-primary"
-                                                target="_blank>Download">
-                                                Download
-                                            </CSVLink>
-                                            <input
-                                                type="file"
-                                                accept=".csv"
-                                                onChange={handleFileUpload}
-                                            />
-                                        </div> */}
+                                                {column.name} <br />
+                                                ({column.grade} point)
                                             </th>
                                         )
                                     })}
@@ -210,7 +207,7 @@ export default function GradeForTeacher(props) {
                                             <td className="name">{row.name}</td>
                                             {row.grade.map((column, index) => {
                                                 return (
-                                                    <td key={index}><input type='number' className="grade" step='1' min='1' value={column.grade} /></td>
+                                                    <td key={index}><input id={column._id} name={row.studentId} type='number' className="grade" step='1' min='1' defaultValue={column.grade} onChange = {changeGrade}/></td>
                                                 )
                                             })}
                                             <td className="name"></td>

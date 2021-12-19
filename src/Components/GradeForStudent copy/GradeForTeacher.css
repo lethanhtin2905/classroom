@@ -224,18 +224,19 @@
 .grade {
   text-align: center;
   height: 25px;
-  /* width: 150px; */
+  max-width: 125px;
 }
 .name{
   text-align: center;
-  width: 100px;
+  min-width: 75px;
   border: 1px solid black;
   margin-right: 5px;
 }
 .columns{
   border: 1px solid black;
+  max-width: 125px;
   color: white;
-  background-color: gray;
+  background-color: #4285f4;
 }
 
 .download-btn {
