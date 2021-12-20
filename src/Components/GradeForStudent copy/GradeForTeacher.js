@@ -31,8 +31,11 @@ export default function GradeForTeacher(props) {
         { label: 'StudentId', key: 'StudentId' },
     ]
     for (var i = 0; i < gradeStructure.length; i++) {
-        gradeDataDefault.push(gradeStructure[i])
-        gradeDataDefault[i].grade=0
+        gradeDataDefault.push({
+            _id: gradeStructure[i]._id,
+            name: gradeStructure[i].name,
+            grade: 0
+        })
     }
 
     //Upload
@@ -48,7 +51,6 @@ export default function GradeForTeacher(props) {
             .then(res => res.json())
             .then(
                 (result) => {
-                    console.log(result)
                     setData(result);
                     // props.setIsLoading(false);
                 },
@@ -56,7 +58,7 @@ export default function GradeForTeacher(props) {
                     // props.setIsLoading(false)
                 }
             )
-    },[])
+    },[data])
 
     // process CSV data
     const processData = dataString => {
@@ -122,11 +124,10 @@ export default function GradeForTeacher(props) {
         })
             .then(response => response.json())
             .then(data => {
-                console.log(data)
                 if (data.isSuccess) {
-                    alert('Successfully added new grade board');
+                    alert('Successfully update grade board');
                 } else {
-                    alert('Failed to added new grade board');
+                    alert('Failed to update grade board');
                 }
             })
             .catch((error) => {
@@ -152,11 +153,40 @@ export default function GradeForTeacher(props) {
         reader.readAsBinaryString(file);
     }
 
+    const updateGrade = (value, gradeId, studentId) => {
+        const data = {
+            value: value,
+            gradeId: gradeId,
+            studentId:studentId.toString(),
+        }
+        console.log(data)
+        fetch(constant.api + constant.allClassPath + `/${currentClass._id}` + '/grade/edit', {
+            method: 'PUT',
+            headers: Object.assign({
+                'Content-Type': 'application/json'
+            }, authHeader()),
+            body: JSON.stringify(data),
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.isSuccess) {
+                    alert('Successfully updated new grade board');
+                } else {
+                    alert('Failed to updated new grade board');
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    }
+
     const changeGrade = (e) => {
-        const v = e.target.value
-        console.log(v)
-        console.log(e.target.name)
-        console.log(e.target.id)
+        const value = e.target.value;
+        const gradeId = e.target.id;
+        const studentId = e.target.name;
+        if (value) {
+            updateGrade(value, gradeId, studentId)
+        }
     }
 
     return (
@@ -169,7 +199,7 @@ export default function GradeForTeacher(props) {
                     <span className="download-icon">
                         <FileDownloadIcon></FileDownloadIcon>
                     </span>
-                    <span>Download</span>
+                    <span>Download Default Template</span>
                 </CSVLink>
             </div>
             <br />
