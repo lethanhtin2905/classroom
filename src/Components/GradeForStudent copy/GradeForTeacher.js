@@ -16,6 +16,7 @@ export default function GradeForTeacher(props) {
     const listUser = currentClass.userList;
     const { gradeStructure } = props;
     const gradeDataDefault = [];
+    let total_default = 0;
     const listDefault = []
 
     let checkCreateBy = false;
@@ -36,11 +37,13 @@ export default function GradeForTeacher(props) {
             name: gradeStructure[i].name,
             grade: 0
         })
+        total_default += gradeStructure[i].grade;
     }
 
     //Upload
     const [columns, setColumns] = useState([]);
     const [data, setData] = useState([]);
+    const [totalOfStudent, setTotalOfStudent] = useState([]);
 
     useEffect(()=>{
         const requestOptions1 = {
@@ -52,6 +55,15 @@ export default function GradeForTeacher(props) {
             .then(
                 (result) => {
                     setData(result);
+                    // let total = [];
+                    // for (var i =0; i<result.length;i++) {
+                    //     total[i] = 0;
+                    //     for (var j=0 ; j<gradeStructure.length; j++) {
+                    //         total[i] += result[i].grade[j].grade*gradeStructure[j].grade / 10;
+                    //     }
+                    //     console.log(total[i])
+                    // }
+                    // setTotalOfStudent(total);
                     // props.setIsLoading(false);
                 },
                 (error) => {
@@ -170,7 +182,6 @@ export default function GradeForTeacher(props) {
             .then(response => response.json())
             .then(data => {
                 if (data.isSuccess) {
-                    alert('Successfully updated new grade board');
                 } else {
                     alert('Failed to updated new grade board');
                 }
@@ -227,7 +238,8 @@ export default function GradeForTeacher(props) {
                                             </th>
                                         )
                                     })}
-                                    <th className='columns'>Total</th>
+                                    <th className='columns'>Total <br />
+                                                ({total_default} point)</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -240,7 +252,7 @@ export default function GradeForTeacher(props) {
                                                     <td key={index}><input id={column._id} name={row.studentId} type='number' className="grade" step='1' min='1' defaultValue={column.grade} onChange = {changeGrade}/></td>
                                                 )
                                             })}
-                                            <td className="name"></td>
+                                            <td className="name">{index}</td>
 
                                         </tr>
                                     )
