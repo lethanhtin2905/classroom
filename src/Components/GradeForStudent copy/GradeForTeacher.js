@@ -55,21 +55,22 @@ export default function GradeForTeacher(props) {
             .then(
                 (result) => {
                     setData(result);
-                    // let total = [];
-                    // for (var i =0; i<result.length;i++) {
-                    //     total[i] = 0;
-                    //     for (var j=0 ; j<gradeStructure.length; j++) {
-                    //         total[i] += result[i].grade[j].grade*gradeStructure[j].grade / 10;
-                    //     }
-                    //     console.log(total[i])
-                    // }
-                    // setTotalOfStudent(total);
+                    let total = [];
+                    for (var i =0; i<result.length;i++) {
+                        total[i] = 0;
+                        for (var j=0 ; j<gradeStructure.length; j++) {
+                            total[i] += result[i].grade[j].grade*gradeStructure[j].grade / 10;
+                        }
+                        console.log(total[i])
+                    }
+                    setTotalOfStudent(total);
                     // props.setIsLoading(false);
                 },
                 (error) => {
                     // props.setIsLoading(false)
                 }
             )
+        return ()=>{};
     },[data])
 
     // process CSV data
