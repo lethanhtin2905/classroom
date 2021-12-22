@@ -41,6 +41,7 @@ export default function DragAndDropList() {
             )
 
         // return () => {
+        //     // setGradeList([]);
         // }
     }, [gradeList])
 

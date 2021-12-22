@@ -12,8 +12,8 @@ import FileDownloadIcon from '@mui/icons-material/FileDownload';
 export default function GradeForTeacher(props) {
     const currentUser = AuthService.getCurrentUser()
     const [currentClass, setCurrentClass] = useState(props.currentClass);
-    const [gradeOfColum, setGradeOfColum] = useState()
-    const listUser = currentClass.userList;
+    // const [gradeOfColum, setGradeOfColum] = useState()
+    // const listUser = currentClass.userList;
     const { gradeStructure } = props;
     const gradeDataDefault = [];
     let total_default = 0;
@@ -31,6 +31,22 @@ export default function GradeForTeacher(props) {
         { label: 'Name', key: 'Name' },
         { label: 'StudentId', key: 'StudentId' },
     ]
+    const headerExport = [
+        { label: 'StudentId', key: 'StudentId' },
+        { label: 'Name', key: 'Name' },
+    ]
+    for (var i = 0; i < gradeStructure.length; i++) {
+        headerExport.push({
+            label: gradeStructure[i].name,
+            key: gradeStructure[i].id,
+        })
+    }
+    headerExport.push({
+        label: "Total",
+        key: "Total",
+    })
+    const [dataExport, setDataExport] = useState([])
+
     for (var i = 0; i < gradeStructure.length; i++) {
         gradeDataDefault.push({
             _id: gradeStructure[i]._id,
@@ -45,7 +61,7 @@ export default function GradeForTeacher(props) {
     const [data, setData] = useState([]);
     const [totalOfStudent, setTotalOfStudent] = useState([]);
 
-    useEffect(()=>{
+    useEffect(() => {
         const requestOptions1 = {
             method: 'GET',
             headers: authHeader(),
@@ -55,23 +71,45 @@ export default function GradeForTeacher(props) {
             .then(
                 (result) => {
                     setData(result);
+
                     let total = [];
                     for (var i =0; i<result.length;i++) {
                         total[i] = 0;
                         for (var j=0 ; j<gradeStructure.length; j++) {
                             total[i] += result[i].grade[j].grade*gradeStructure[j].grade / 10;
                         }
-                        console.log(total[i])
                     }
                     setTotalOfStudent(total);
+
+                    let dataExport = []
+                    // for (var m =0; m<result.length;m++) {
+                    //     // let dt = {
+                    //     //     StudentId: result[m].studentId,
+                    //     //     Name: result[m].name
+                    //     // };
+                    
+                    //     for (var n=0 ; n < gradeStructure.length; n++) {
+                    //         const id = gradeStructure[n].id
+                    //         // console.log(id);
+                    //         dt.id = result[m].grade[n].grade;
+                    //         let dt = {
+                    //             StudentId: result[m].studentId,
+                    //             Name: result[m].name
+                    //             id: result[m].grade[n].grade,
+                    //         };
+                    //     }
+                    //     dt.Total = total[m];
+                    //     dataExport.push(dt);
+                    // }
+                    setDataExport(dataExport);
                     // props.setIsLoading(false);
                 },
                 (error) => {
                     // props.setIsLoading(false)
                 }
             )
-        return ()=>{};
-    },[data])
+        // return ()=>{};
+    }, [data])
 
     // process CSV data
     const processData = dataString => {
@@ -128,7 +166,7 @@ export default function GradeForTeacher(props) {
     }
 
     const updateDataApi = (data) => {
-        fetch(constant.api + constant.allClassPath + `/${currentClass._id}` + '/grade', {
+        fetch(constant.api + constant.allClassPath + `/${currentClass._id}/grade`, {
             method: 'PUT',
             headers: Object.assign({
                 'Content-Type': 'application/json'
@@ -166,38 +204,34 @@ export default function GradeForTeacher(props) {
         reader.readAsBinaryString(file);
     }
 
-    const updateGrade = (value, gradeId, studentId) => {
-        const data = {
-            value: value,
-            gradeId: gradeId,
-            studentId:studentId.toString(),
-        }
-        console.log(data)
-        fetch(constant.api + constant.allClassPath + `/${currentClass._id}` + '/grade/edit', {
-            method: 'PUT',
-            headers: Object.assign({
-                'Content-Type': 'application/json'
-            }, authHeader()),
-            body: JSON.stringify(data),
-        })
-            .then(response => response.json())
-            .then(data => {
-                if (data.isSuccess) {
-                } else {
-                    alert('Failed to updated new grade board');
-                }
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            });
-    }
-
     const changeGrade = (e) => {
         const value = e.target.value;
         const gradeId = e.target.id;
         const studentId = e.target.name;
         if (value) {
-            updateGrade(value, gradeId, studentId)
+
+            const data = {
+                value: value,
+                gradeId: gradeId,
+                studentId: studentId.toString(),
+            }
+            fetch(constant.api + constant.allClassPath + `/${currentClass._id}/grade/edit`, {
+                method: 'PUT',
+                headers: Object.assign({
+                    'Content-Type': 'application/json'
+                }, authHeader()),
+                body: JSON.stringify(data),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.isSuccess) {
+                    } else {
+                        alert('Failed to updated new grade board');
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
         }
     }
 
@@ -205,18 +239,27 @@ export default function GradeForTeacher(props) {
         <div>
             <div className='download-btn'>
                 <CSVLink data={dataDefault} headers={headerDefault}
-                    filename={"my-file.csv"}
+                    filename={"template_default.csv"}
                     className="btn btn-primary"
                     target="_blank>Download">
                     <span className="download-icon">
                         <FileDownloadIcon></FileDownloadIcon>
                     </span>
-                    <span>Download Default Template</span>
+                    <span>Default Template</span>
+                </CSVLink>
+                <CSVLink data={dataExport} headers={headerExport}
+                    filename={"grade_board.csv"}
+                    className="btn btn-primary export"
+                    target="_blank>Download">
+                    <span className="download-icon">
+                        <FileDownloadIcon></FileDownloadIcon>
+                    </span>
+                    <span>Export Grade Board</span>
                 </CSVLink>
             </div>
             <br />
-            <div>
-                Upload student list:
+            <div className="uploadStudent">
+                <b>Upload student list: </b>
                 <input
                     type="file"
                     accept=".csv"
@@ -230,7 +273,7 @@ export default function GradeForTeacher(props) {
                         (<table className="table table-bordered">
                             <thead>
                                 <tr>
-                                    <th className='columns'>Name</th>
+                                    <th className='columns'>Student ID</th>
                                     {gradeStructure.map((column, index) => {
                                         return (
                                             <th key={index} className='columns'>
@@ -240,21 +283,20 @@ export default function GradeForTeacher(props) {
                                         )
                                     })}
                                     <th className='columns'>Total <br />
-                                                ({total_default} point)</th>
+                                        ({total_default} point)</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {data.map((row, index) => {
                                     return (
                                         <tr key={index}>
-                                            <td className="name">{row.name}</td>
+                                            <td className="studentId">{row.studentId}</td>
                                             {row.grade.map((column, index) => {
                                                 return (
-                                                    <td key={index}><input id={column._id} name={row.studentId} type='number' className="grade" step='1' min='1' defaultValue={column.grade} onChange = {changeGrade}/></td>
+                                                    <td key={index}><input id={column._id} name={row.studentId} type='number' className="grade" step='1' min='1' defaultValue={column.grade} onChange={changeGrade} /></td>
                                                 )
                                             })}
-                                            <td className="name">{totalOfStudent[index]}</td>
-
+                                            <td className="totalGrade">{totalOfStudent[index]}</td>
                                         </tr>
                                     )
                                 })}
@@ -264,7 +306,6 @@ export default function GradeForTeacher(props) {
                     }
                 </div>
             }
-            <br />
             <br />
         </div>
     );

@@ -4,10 +4,10 @@ import { useHistory } from 'react-router-dom'
 import authHeader from "../../services/auth-header"
 import AuthService from "../../services/auth.service"
 import "./ClassDetail.css";
-import constant from '../../Utils'
-import { Avatar, Button, TextField } from "@material-ui/core";
+import constant from '../../Utils';
 import Members from "../Members/Members";
-import GradeForTeacher from "../GradeForStudent copy/GradeForTeacher";
+import GradeForTeacher from "../GradeForTeacher/GradeForTeacher";
+// import GradeForStudent from "../GradeForStudent/GradeForStudent";
 import Posts from "../Posts/Posts";
 
 
@@ -135,6 +135,7 @@ export default function ClassDetail(props) {
                 {posts ? <Posts currentClass={currentClass} gradeStructure = {gradeList}> </Posts> : <div></div>}
                 {members ? <Members currentClass={currentClass} users={users}> </Members> : <div></div>}
                 {grades ? <GradeForTeacher currentClass={currentClass} users={users} gradeStructure = {gradeList}> </GradeForTeacher> : <div></div>}
+                {/* <GradeForStudent currentClass={currentClass} users={users} gradeStructure = {gradeList}> </GradeForStudent> */}
             </div>
         </div>
     );
