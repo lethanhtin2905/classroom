@@ -274,6 +274,7 @@ export default function GradeForTeacher(props) {
                             <thead>
                                 <tr>
                                     <th className='columns'>Student ID</th>
+                                    <th className='columns'>Name</th>
                                     {gradeStructure.map((column, index) => {
                                         return (
                                             <th key={index} className='columns'>
@@ -291,6 +292,7 @@ export default function GradeForTeacher(props) {
                                     return (
                                         <tr key={index}>
                                             <td className="studentId">{row.studentId}</td>
+                                            <td className="studentId">{row.name}</td>
                                             {row.grade.map((column, index) => {
                                                 return (
                                                     <td key={index}><input id={column._id} name={row.studentId} type='number' className="grade" step='1' min='1' defaultValue={column.grade} onChange={changeGrade} /></td>
