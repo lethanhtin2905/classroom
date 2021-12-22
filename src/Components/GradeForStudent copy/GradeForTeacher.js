@@ -253,7 +253,7 @@ export default function GradeForTeacher(props) {
                                                     <td key={index}><input id={column._id} name={row.studentId} type='number' className="grade" step='1' min='1' defaultValue={column.grade} onChange = {changeGrade}/></td>
                                                 )
                                             })}
-                                            <td className="name">{index}</td>
+                                            <td className="name">{totalOfStudent[index]}</td>
 
                                         </tr>
                                     )
