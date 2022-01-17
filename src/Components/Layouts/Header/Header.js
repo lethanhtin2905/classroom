@@ -1,5 +1,5 @@
 import './Header.css';
-import logo from '../../../Images/logo.png';
+// import logo from '../../../Images/logo.png';
 import * as React from "react";
 import { Link, useHistory } from 'react-router-dom'
 import AuthService from '../../../Auth/AuthService';
@@ -38,7 +38,7 @@ export default function Header() {
                 <Toolbar>
                     <Typography variant="h6" color="inherit" noWrap>
                         <Link to="/dashboard" className='logo'>
-                            <img width="40px" height="40px" src='../../../Images/logo.png' />
+                            <img width="40px" height="40px" src='https://pbs.twimg.com/profile_images/695779028/gradebook-icon_400x400.png'/>
                         </Link>
                     </Typography>
                     <Typography
