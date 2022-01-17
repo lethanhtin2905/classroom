@@ -13,6 +13,7 @@
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "babel-plugin-styled-components": "^2.0.2",
+    "dotenv": "^14.1.0",
     "generate-avatar": "^1.4.10",
     "history": "^5.1.0",
     "https": "^1.0.0",
