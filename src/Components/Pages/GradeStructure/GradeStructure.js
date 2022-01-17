@@ -1,19 +1,20 @@
-import { Link } from 'react-router-dom';
-import authHeader from "../../Auth/AuthHeader"
-import AuthService from "../../Auth/AuthService";
 import "./GradeStructure.css";
-import constant from '../../Utils/index'
 import { useState, useEffect } from "react";
 import { useParams } from "react-router";
+import { Link } from 'react-router-dom';
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
+import AuthHeader from "../../../Auth/AuthHeader";
 import ListItem from "./ListGradeItem";
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
+import constant from '../../../Utils';
+import {
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogContentText,
+    DialogTitle,
+    Button,
+    TextField
+} from '@mui/material';
 
 export default function DragAndDropList() {
     const [gradeList, setGradeList] = useState([]);
@@ -26,7 +27,7 @@ export default function DragAndDropList() {
     useEffect(() => {
         const requestOptions1 = {
             method: 'GET',
-            headers: authHeader(),
+            headers: AuthHeader(),
         };
         fetch(constant.api + constant.allClassPath + `/${id}` + '/grade-structure', requestOptions1)
             .then(res => res.json())
@@ -73,7 +74,7 @@ export default function DragAndDropList() {
                 method: 'POST',
                 headers: Object.assign({
                     'Content-Type': 'application/json'
-                }, authHeader()),
+                }, AuthHeader()),
                 body: JSON.stringify(data),
             })
                 .then(response => response.json())
@@ -101,7 +102,7 @@ export default function DragAndDropList() {
             method: 'POST',
             headers: Object.assign({
                 'Content-Type': 'application/json'
-            }, authHeader()),
+            }, AuthHeader()),
             body: JSON.stringify({
                 newItems: newItems
             }),
@@ -118,7 +119,7 @@ export default function DragAndDropList() {
 
         const requestOptions1 = {
             method: 'GET',
-            headers: authHeader(),
+            headers: AuthHeader(),
         };
         fetch(constant.api + constant.allClassPath + `/${id}` + '/grade-structure', requestOptions1)
             .then(res => res.json())
@@ -221,7 +222,5 @@ export default function DragAndDropList() {
                 </Dialog>
             </div>
         </div>
-
     );
 }
-

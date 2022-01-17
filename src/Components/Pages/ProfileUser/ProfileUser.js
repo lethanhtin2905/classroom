@@ -1,9 +1,9 @@
+import './ProfileUser.css';
 import * as React from 'react';
 import { useHistory } from 'react-router';
-import authHeader from '../../Auth/AuthHeader';
-import AuthService from '../../Auth/AuthService';
-import './ProfileMenu.css';
-import constant from '../../Utils/index';
+import AuthHeader from '../../../Auth/AuthHeader';
+import AuthService from '../../../Auth/AuthService';
+import constant from '../../../Utils';
 import {
     Button,
     MenuItem,
@@ -18,7 +18,7 @@ import {
 } from '@mui/material';
 import AccountCircle from "@mui/icons-material/AccountCircle";
 
-export default function ProfileMenu() {
+export default function ProfileUser() {
     const history = useHistory();
     const currentUser = AuthService.getCurrentUser();
     if (!currentUser) {
@@ -63,7 +63,7 @@ export default function ProfileMenu() {
             method: 'POST',
             headers: Object.assign({
                 'Content-Type': 'application/json'
-            }, authHeader()),
+            }, AuthHeader()),
             body: JSON.stringify({
                 name: name,
                 email: email,

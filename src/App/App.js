@@ -12,11 +12,11 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 
 // Components
 import Header from '../Components/Layouts/Header/Header';
-import DashBoard from '../../Components/DashBoard/DashBoard';
-import LogIn from '../../Components/Login/Login';
+import DashBoard from '../Components/Pages/DashBoard/DashBoard';
+import LogIn from '../Components/Pages/Login/Login';
 import SignUp from '../Components/Pages/SignUp/SignUp';
-import ClassDetail from '../../Components/ClassDetail/ClassDetail';
-import GradeStructure from '../../Components/GradeStructure/GradeStructure'
+import ClassDetail from '../Components/Pages/ClassDetail/ClassDetail';
+import GradeStructure from '../Components/Pages/GradeStructure/GradeStructure'
 
 function App() {
 	const [isLoading, setIsLoading] = useState(false);

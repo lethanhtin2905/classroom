@@ -1,10 +1,10 @@
 import './Header.css';
-import logo from '../../images/logo.png';
+import logo from '../../../Images/logo.png';
 import * as React from "react";
 import { Link, useHistory } from 'react-router-dom'
 import AuthService from '../../../Auth/AuthService';
-import AddClass from '../../Components/Pages/AddClass/AddClass';
-import ProfileUser from '../../Components/Pages/ProfileUser/ProfileUser';
+import AddClass from '../../Pages/AddClass/AddClass';
+import ProfileUser from '../../Pages/ProfileUser/ProfileUser';
 import {
     AppBar, Box,
     Toolbar,

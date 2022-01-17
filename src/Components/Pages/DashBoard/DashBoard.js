@@ -1,9 +1,8 @@
 import './DashBoard.css';
-import dotenv from 'dotenv';
 import { useEffect, useState } from 'react';
 import { useHistory, Link } from "react-router-dom";
 import AuthHeader from '../../../Auth/AuthHeader';
-import AuthService from '../../..AuthHeader/Auth/AuthService';
+import AuthService from '../../../Auth/AuthService';
 import constant from '../../../Utils'
 import {
     Grid,
@@ -15,8 +14,6 @@ import {
     CardActions,
     Button
 } from '@mui/material';
-
-require('dotenv').config();
 
 function Dashboard(props) {
     const history = useHistory();
@@ -60,7 +57,8 @@ function Dashboard(props) {
                                 component="img"
                                 height="210"
                                 width="250"
-                                image = {process.env.REACT_APP_IMAGE_CARD}
+                                image = "https://p18cdn4static.sharpschool.com/UserFiles/Servers/Server_102145/Image/Our%20School/Academic%20Information/Grading%20Policy/1413463042370_wnp250.jpg"
+                                // image = {process.env.REACT_APP_IMAGE_CARD}
                                 alt="green iguana"
                             />
                             <CardContent>

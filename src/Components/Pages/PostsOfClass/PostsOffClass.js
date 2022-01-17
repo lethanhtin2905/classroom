@@ -1,11 +1,15 @@
-import React, { useState, useEffect } from "react";
+import "./PostsOfClass.css";
+import React, { useState } from "react";
 import {Link} from 'react-router-dom';
-import AuthService from "../../Auth/AuthService"
-import "./Posts.css";
-import { Avatar, Button, TextField } from "@material-ui/core";
+import AuthService from "../../../Auth/AuthService";
+import { 
+    Avatar, 
+    Button, 
+    TextField 
+} from "@material-ui/core";
 import EditIcon from '@mui/icons-material/Edit';
 
-export default function Posts(props) {
+export default function PostsOfClass(props) {
     const currentUser = AuthService.getCurrentUser()
 
     const currentClass = props.currentClass;

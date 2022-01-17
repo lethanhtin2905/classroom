@@ -1,6 +1,4 @@
 import constant from '../Utils';
-import dotenv from 'dotenv';
-require('dotenv').config();
 
 class AuthService {
     logIn(username, password) {
@@ -12,7 +10,7 @@ class AuthService {
                 password: password
             })
         };
-        return fetch(`${process.env.REACT_APP_API_URL}` + constant.userPath + constant.logInPath, requestOptions)
+        return fetch(constant.api + constant.userPath + constant.logInPath, requestOptions)
             .then(response => response.json())
             .then(result => {
                 if (result.isSuccess){

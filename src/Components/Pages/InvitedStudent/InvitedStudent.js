@@ -1,9 +1,9 @@
+import './InvitedStudent.css';
 import * as React from 'react';
 import { useHistory } from 'react-router-dom'
-import authHeader from '../../Auth/AuthHeader';
-import AuthService from '../../Auth/AuthService';
-import './Invited.css'
-import constant from '../../Utils'
+import authHeader from '../../../Auth/AuthHeader';
+import AuthService from '../../../Auth/AuthService';
+import constant from '../../../Utils'
 import {
     Button,
     TextField,

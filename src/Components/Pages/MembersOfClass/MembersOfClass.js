@@ -1,9 +1,8 @@
+import "./MembersOfClass.css";
 import * as React from 'react';
-import { useEffect, useState } from 'react';
-import AuthService from "../../Auth/AuthService"
-import authHeader from '../../Auth/AuthHeader';
-import "./Members.css";
-import constant from '../../Utils';
+import { useState } from 'react';
+import AuthService from "../../../Auth/AuthService";
+import InvitedStudent from '../InvitedStudent/InvitedStudent';
 import {
     ListItem,
     ListItemText,
@@ -11,9 +10,8 @@ import {
     Avatar,
     Typography,
 } from '@mui/material';
-import Invited from '../InvitedStudent/InvitedStudent';
 
-export default function Members(props) {
+export default function MembersOfClass(props) {
     const currentUser = AuthService.getCurrentUser()
     const [currentClass, setCurrentClass] = useState(props.currentClass);
     const listUser = currentClass.userList;
@@ -47,7 +45,7 @@ export default function Members(props) {
                         <div className="role__content">
                             TEACHER
                         </div>
-                        {checkCreateBy ? <Invited currentClass={currentClass} role={true}></Invited> : <div></div>}
+                        {checkCreateBy ? <InvitedStudent currentClass={currentClass} role={true}></InvitedStudent> : <div></div>}
                     </div>
                     <div className="line">
                         <hr />
@@ -86,7 +84,7 @@ export default function Members(props) {
                         <div className="role__content">
                             STUDENT
                         </div>
-                        {checkCreateBy ? <Invited currentClass={currentClass} role={false}></Invited> : <div></div>}
+                        {checkCreateBy ? <InvitedStudent currentClass={currentClass} role={false}></InvitedStudent> : <div></div>}
                     </div>
                     <div className="line">
                         <hr />

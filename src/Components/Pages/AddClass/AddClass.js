@@ -3,7 +3,7 @@ import * as React from 'react';
 import { useHistory } from 'react-router-dom';
 import AuthHeader from '../../../Auth/AuthHeader';
 import AuthService from '../../../Auth/AuthService';
-import constant from '../../Utils';
+import constant from '../../../Utils';
 import {
     Button,
     MenuItem,
@@ -18,7 +18,7 @@ import {
 } from '@mui/material';
 import AddIcon from "@mui/icons-material/Add";
 
-export default function MenuActClass() {
+export default function AddClass() {
     const history = useHistory();
     const currentUser = AuthService.getCurrentUser();
     if (!currentUser) {

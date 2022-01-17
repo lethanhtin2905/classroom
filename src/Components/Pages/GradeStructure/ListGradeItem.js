@@ -1,18 +1,19 @@
-import authHeader from "../../Auth/AuthHeader"
-import AuthService from "../../Auth/AuthService"
 import "./GradeStructure.css";
-import constant from '../../Utils/index'
 import React from "react";
+import AuthHeader from "../../../Auth/AuthHeader";
+import constant from '../../../Utils';
 import styled, { css } from "styled-components";
-import Button from '@mui/material/Button';
+import {
+    Button,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogContentText,
+    DialogTitle,
+    TextField
+} from "@mui/material";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
-import TextField from '@mui/material/TextField'
 
 const CardHeader = styled.div`
   font-weight: 500;
@@ -76,7 +77,7 @@ const ListItem = ({ id, item, provided, snapshot }) => {
             method: 'DELETE',
             headers: Object.assign({
                 'Content-Type': 'application/json'
-            }, authHeader()),
+            }, AuthHeader()),
         })
             .then(response => response.json())
             .then(data => {
@@ -95,7 +96,7 @@ const ListItem = ({ id, item, provided, snapshot }) => {
             method: 'PUT',
             headers: Object.assign({
                 'Content-Type': 'application/json'
-            }, authHeader()),
+            }, AuthHeader()),
             body: JSON.stringify({
                 name: name,
                 grade: grade

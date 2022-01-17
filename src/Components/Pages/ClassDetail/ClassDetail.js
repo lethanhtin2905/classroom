@@ -27,7 +27,6 @@ export default function ClassDetail(props) {
     const [users, setUsers] = useState([])
     const [gradeList, setGradeList] = useState([]);
 
-    // let
     const [isCreateBy, setIsCreateBy] = useState(false)
 
     useEffect(() => {
@@ -71,6 +70,7 @@ export default function ClassDetail(props) {
             method: 'GET',
             headers: AuthHeader(),
         };
+        
         fetch(constant.api + constant.allClassPath + `/${id}` + '/grade-structure', requestOptions3)
             .then(res => res.json())
             .then(
