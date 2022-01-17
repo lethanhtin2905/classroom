@@ -1,8 +1,11 @@
+import config from '../../../config.json'; 
+import './Login.css';
 import * as React from 'react';
 import { useState } from 'react';
 import { useHistory } from "react-router-dom";
-import AuthService from '../../Auth/AuthService';
-import './Login.css';
+import AuthService from '../../../Auth/AuthService';
+import { GoogleLogin } from 'react-google-login';
+import FacebookLogin from 'react-facebook-login';
 import {
     Avatar,
     Button,
@@ -15,12 +18,10 @@ import {
     Typography
 } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import { GoogleLogin } from 'react-google-login';
-import FacebookLogin from 'react-facebook-login';
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-require('dotenv').config();
+// require('dotenv').config();
 
 const theme = createTheme();
 
@@ -194,8 +195,9 @@ export default function Login(props) {
                             </Button>
                             <GoogleLogin
                             className="btn-login"
-                                // clientId=""
-                                clientId = {process.env.REACT_APP_GG_CLIENTID}
+                                // clientId="456562452797-8l37bdgcv5uuacglkgjpkobpvs6nelli.apps.googleusercontent.com"
+                                // clientId = {process.env.REACT_APP_GG_CLIENTID}
+                                clientId = {config.GG_CLIENTID}
                                 buttonText="LOGIN WITH GOOGLE"
                                 onSuccess={responseGoogle}
                                 onFailure={responseGoogle2}
@@ -203,12 +205,12 @@ export default function Login(props) {
                             />,
                             <FacebookLogin
                                 className="btn-login"
-                                appID = {process.env.REACT_APP_FB_APPID}
+                                // appID = "1049530302499866"
+                                // appID = {process.env.REACT_APP_FB_APPID}
+                                appID = {config.FB_APPID}
                                 autoLoad={false}
                                 callback={responseFacebook}
                             />
-
-
                         </Box>
                     </Box>
                 </Grid>
