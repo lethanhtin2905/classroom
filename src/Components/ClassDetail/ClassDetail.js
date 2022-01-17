@@ -7,9 +7,8 @@ import "./ClassDetail.css";
 import constant from '../../Utils';
 import Members from "../Members/Members";
 import GradeForTeacher from "../GradeForTeacher/GradeForTeacher";
-// import GradeForStudent from "../GradeForStudent/GradeForStudent";
+import GradeForStudent from "../GradeForStudent/GradeForStudent";
 import Posts from "../Posts/Posts";
-
 
 export default function ClassDetail(props) {
     const history = useHistory();
@@ -135,7 +134,7 @@ export default function ClassDetail(props) {
                 {posts ? <Posts currentClass={currentClass} gradeStructure = {gradeList}> </Posts> : <div></div>}
                 {members ? <Members currentClass={currentClass} users={users}> </Members> : <div></div>}
                 {grades ? <GradeForTeacher currentClass={currentClass} users={users} gradeStructure = {gradeList}> </GradeForTeacher> : <div></div>}
-                {/* <GradeForStudent currentClass={currentClass} users={users} gradeStructure = {gradeList}> </GradeForStudent> */}
+                {grades ? <GradeForStudent currentClass={currentClass} users={users} gradeStructure = {gradeList} currentUser={currentUser}> </GradeForStudent> : <div></div>}
             </div>
         </div>
     );

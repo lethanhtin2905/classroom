@@ -156,7 +156,7 @@ export default function ProfileMenu() {
                             variant="standard"
                             onChange={onChangeEmail}
                         />
-                        <TextField
+                        {studentId === '' ? <TextField
                             margin="dense"
                             id="studentId"
                             label="Student ID"
@@ -165,7 +165,17 @@ export default function ProfileMenu() {
                             fullWidth
                             variant="standard"
                             onChange={onChangeStudentId}
-                        />
+                        /> :
+                        <TextField
+                            disabled
+                            margin="dense"
+                            id="studentId"
+                            label="Student ID"
+                            type="studentId"
+                            value={studentId}
+                            fullWidth
+                            variant="standard"
+                        /> }
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={handleUpdate}>Update</Button>

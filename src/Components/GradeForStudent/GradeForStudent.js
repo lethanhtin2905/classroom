@@ -7,9 +7,8 @@ import './GradeForStudent.css';
 import constant from '../../Utils';
 
 export default function GradeForStudent(props) {
-    const currentUser = AuthService.getCurrentUser()
     const [currentClass, setCurrentClass] = useState(props.currentClass);
-    const { gradeStructure } = props;
+    const { gradeStructure, currentUser } = props;
     const gradeDataDefault = [];
     let total_default = 0;
 
@@ -82,7 +81,7 @@ export default function GradeForStudent(props) {
                             </thead>
                             <tbody>
                                 {data.map((row, index) => {
-                                    if (row.studentId === currentUser.studentId) {
+                                    if (row.studentId === currentUser.userID) {
                                         return (
                                             <tr key={index}>
                                                 {/* <td className="studentId">{row.studentId}</td> */}

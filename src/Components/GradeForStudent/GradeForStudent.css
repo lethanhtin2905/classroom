@@ -225,10 +225,18 @@
   text-align: center;
   height: 25px;
   max-width: 125px;
+  min-width: 120px; 
+  border: 1px solid black;
 }
 .studentId, .totalGrade{
   text-align: center;
   min-width: 90px;
+  border: 1px solid black;
+  margin-right: 5px;
+}
+.name{
+  text-align: center;
+  min-width: 120px;
   border: 1px solid black;
   margin-right: 5px;
 }
@@ -252,6 +260,16 @@
 
 .btn.btn-primary {
 margin-left: 0px !important;
- text-decoration: none;
- padding: 5px;
+text-decoration: none;
+padding: 5px;
+}
+
+.btn.btn-primary.export {
+  margin-left: 25px !important;
+  text-decoration: none;
+  padding: 5px;
+}
+
+.download-btn, .uploadStudent{
+  text-align: center;
 }

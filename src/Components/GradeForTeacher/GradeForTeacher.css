@@ -232,6 +232,12 @@
   border: 1px solid black;
   margin-right: 5px;
 }
+.name{
+  text-align: center;
+  min-width: 120px;
+  border: 1px solid black;
+  margin-right: 5px;
+}
 .columns{
   border: 1px solid black;
   max-width: 125px;

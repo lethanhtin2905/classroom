@@ -82,25 +82,7 @@ export default function GradeForTeacher(props) {
                     setTotalOfStudent(total);
 
                     let dataExport = []
-                    // for (var m =0; m<result.length;m++) {
-                    //     // let dt = {
-                    //     //     StudentId: result[m].studentId,
-                    //     //     Name: result[m].name
-                    //     // };
                     
-                    //     for (var n=0 ; n < gradeStructure.length; n++) {
-                    //         const id = gradeStructure[n].id
-                    //         // console.log(id);
-                    //         dt.id = result[m].grade[n].grade;
-                    //         let dt = {
-                    //             StudentId: result[m].studentId,
-                    //             Name: result[m].name
-                    //             id: result[m].grade[n].grade,
-                    //         };
-                    //     }
-                    //     dt.Total = total[m];
-                    //     dataExport.push(dt);
-                    // }
                     setDataExport(dataExport);
                     // props.setIsLoading(false);
                 },
@@ -237,6 +219,7 @@ export default function GradeForTeacher(props) {
 
     return (
         <div>
+            
             <div className='download-btn'>
                 <CSVLink data={dataDefault} headers={headerDefault}
                     filename={"template_default.csv"}
@@ -292,7 +275,7 @@ export default function GradeForTeacher(props) {
                                     return (
                                         <tr key={index}>
                                             <td className="studentId">{row.studentId}</td>
-                                            <td className="studentId">{row.name}</td>
+                                            <td className="name">{row.name}</td>
                                             {row.grade.map((column, index) => {
                                                 return (
                                                     <td key={index}><input id={column._id} name={row.studentId} type='number' className="grade" step='1' min='1' defaultValue={column.grade} onChange={changeGrade} /></td>
