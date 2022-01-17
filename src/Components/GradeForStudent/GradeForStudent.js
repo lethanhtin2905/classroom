@@ -1,7 +1,6 @@
 /* eslint-disable react/jsx-no-undef */
 import * as React from 'react';
 import { useEffect, useState } from 'react';
-import AuthService from "../../services/auth.service"
 import authHeader from '../../services/auth-header';
 import './GradeForStudent.css';
 import constant from '../../Utils';
@@ -11,11 +10,6 @@ export default function GradeForStudent(props) {
     const { gradeStructure, currentUser } = props;
     const gradeDataDefault = [];
     let total_default = 0;
-
-    // let checkCreateBy = false;
-    // if (currentClass.createBy._id === currentUser._id) {
-    //     checkCreateBy = true;
-    // }
 
     for (var i = 0; i < gradeStructure.length; i++) {
         gradeDataDefault.push({
@@ -27,7 +21,6 @@ export default function GradeForStudent(props) {
     }
 
     //Upload
-    const [columns, setColumns] = useState([]);
     const [data, setData] = useState([]);
     const [totalOfStudent, setTotalOfStudent] = useState([]);
 
@@ -66,7 +59,6 @@ export default function GradeForStudent(props) {
                         (<table className="table table-bordered">
                             <thead>
                                 <tr>
-                                    {/* <th className='columns'>Student ID</th> */}
                                     {gradeStructure.map((column, index) => {
                                         return (
                                             <th key={index} className='columns'>
@@ -84,7 +76,6 @@ export default function GradeForStudent(props) {
                                     if (row.studentId === currentUser.userID) {
                                         return (
                                             <tr key={index}>
-                                                {/* <td className="studentId">{row.studentId}</td> */}
                                                 {row.grade.map((column, index) => {
                                                     return (
                                                         <td key={index} className="grade">{column.grade}</td>
@@ -93,6 +84,8 @@ export default function GradeForStudent(props) {
                                                 <td className="totalGrade">{totalOfStudent[index]}</td>
                                             </tr>
                                         )
+                                    } else {
+                                        return <tr key={index}></tr>
                                     }
                                 })}
                             </tbody>

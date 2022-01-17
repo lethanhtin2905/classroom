@@ -19,10 +19,10 @@ export default function GradeForTeacher(props) {
     let total_default = 0;
     const listDefault = []
 
-    let checkCreateBy = false;
-    if (currentClass.createBy._id === currentUser._id) {
-        checkCreateBy = true;
-    }
+    // let checkCreateBy = false;
+    // if (currentClass.createBy._id === currentUser._id) {
+    //     checkCreateBy = true;
+    // }
 
     const dataDefault = [
         { Name: '', StudentId: '' },

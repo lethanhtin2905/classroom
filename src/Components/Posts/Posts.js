@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
 import {Link} from 'react-router-dom';
-import authHeader from "../../services/auth-header"
 import AuthService from "../../services/auth.service"
 import "./Posts.css";
-import constant from '../../Utils';
 import { Avatar, Button, TextField } from "@material-ui/core";
 import EditIcon from '@mui/icons-material/Edit';
 
@@ -20,33 +18,13 @@ export default function Posts(props) {
 
     const [showInput, setShowInput] = useState(false);
     const [inputValue, setInput] = useState("");
-    const [image, setImage] = useState(null);
-    // const [gradeStructure, setGradeStructure] = useState([])
+    // const [image, setImage] = useState(null);
 
-    // useEffect(() => {
-    //     setGradeStructure([]);
-    //     const requestOptions = {
-    //         method: 'GET',
-    //         headers: authHeader(),
-    //     };
-    //     fetch(constant.api + constant.allClassPath + `/${currentClass._id}` + constant.userPath, requestOptions)
-    //         .then(res => res.json())
-    //         .then(
-    //             (result) => {
-    //                 setGradeStructure(result);
-    //             },
-    //             (error) => {
-    //             }
-    //         )
-
-    //     return () => { }
-    // }, [])
-
-    const handleChange = (e) => {
-        if (e.target.files[0]) {
-            setImage(e.target.files[0]);
-        }
-    };
+    // const handleChange = (e) => {
+    //     if (e.target.files[0]) {
+    //         setImage(e.target.files[0]);
+    //     }
+    // };
 
     const handleUpload = () => { }
 
@@ -91,7 +69,7 @@ export default function Posts(props) {
                                 />
                                 <div className="detail__buttons">
                                     <input
-                                        onChange={handleChange}
+                                        // onChange={handleChange}
                                         variant="outlined"
                                         color="primary"
                                         type="file"
@@ -137,7 +115,7 @@ export default function Posts(props) {
                                 />
                                 <div className="detail__buttons">
                                     <input
-                                        onChange={handleChange}
+                                        // onChange={handleChange}
                                         variant="outlined"
                                         color="primary"
                                         type="file"

@@ -28,7 +28,7 @@ export default function ClassDetail(props) {
     const [gradeList, setGradeList] = useState([]);
 
     // let
-    const [isCreateBy, setIsCreateBy] = useState()
+    const [isCreateBy, setIsCreateBy] = useState(false)
 
     useEffect(() => {
         const requestOptions1 = {
@@ -41,7 +41,7 @@ export default function ClassDetail(props) {
                 (result) => {
                     setCurrentClass(result);
                     setCreateBy(result.createBy);
-                    if (createBy._id == currentUser._id) {
+                    if (result.createBy._id === currentUser._id) {
                         setIsCreateBy(true)
                     }
                     setPosts(true);
@@ -133,8 +133,8 @@ export default function ClassDetail(props) {
                 </div>
                 {posts ? <Posts currentClass={currentClass} gradeStructure = {gradeList}> </Posts> : <div></div>}
                 {members ? <Members currentClass={currentClass} users={users}> </Members> : <div></div>}
-                {grades ? <GradeForTeacher currentClass={currentClass} users={users} gradeStructure = {gradeList}> </GradeForTeacher> : <div></div>}
-                {grades ? <GradeForStudent currentClass={currentClass} users={users} gradeStructure = {gradeList} currentUser={currentUser}> </GradeForStudent> : <div></div>}
+                {(grades&&isCreateBy) ? <GradeForTeacher currentClass={currentClass} users={users} gradeStructure = {gradeList}> </GradeForTeacher> : <div></div>}
+                {(grades&&!isCreateBy) ? <GradeForStudent currentClass={currentClass} users={users} gradeStructure = {gradeList} currentUser={currentUser}> </GradeForStudent> : <div></div>}
             </div>
         </div>
     );

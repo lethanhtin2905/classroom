@@ -190,7 +190,7 @@ export default function ProfileMenu() {
 
     return (
         <div>
-            <IconButton className="btnActClass"
+            <IconButton className="btnActClass icon"
                 size="large"
                 edge="end"
                 aria-label="account of current user"
@@ -198,7 +198,6 @@ export default function ProfileMenu() {
                 aria-haspopup="true"
                 onClick={handleActClassMenuOpen}
                 color="inherit"
-                className="icon"
             >
                 <AccountCircle />
             </IconButton>
