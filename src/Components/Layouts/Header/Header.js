@@ -38,7 +38,7 @@ export default function Header() {
                 <Toolbar>
                     <Typography variant="h6" color="inherit" noWrap>
                         <Link to="/dashboard" className='logo'>
-                            <img width="40px" height="40px" src={logo} />
+                            <img width="40px" height="40px" src='../../../Images/logo.png' />
                         </Link>
                     </Typography>
                     <Typography
