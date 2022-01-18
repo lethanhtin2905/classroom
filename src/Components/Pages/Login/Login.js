@@ -1,4 +1,3 @@
-import config from '../../../config.json'; 
 import './Login.css';
 import * as React from 'react';
 import { useState } from 'react';
@@ -20,8 +19,6 @@ import {
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-
-// require('dotenv').config();
 
 const theme = createTheme();
 
@@ -194,10 +191,10 @@ export default function Login(props) {
                                 LOGIN
                             </Button>
                             <GoogleLogin
-                            className="btn-login"
-                                // clientId="456562452797-8l37bdgcv5uuacglkgjpkobpvs6nelli.apps.googleusercontent.com"
+                                className="btn-login"
+                                clientId="456562452797-8l37bdgcv5uuacglkgjpkobpvs6nelli.apps.googleusercontent.com"
                                 // clientId = {process.env.REACT_APP_GG_CLIENTID}
-                                clientId = {config.GG_CLIENTID}
+                                // clientId = {config.GG_CLIENTID}
                                 buttonText="LOGIN WITH GOOGLE"
                                 onSuccess={responseGoogle}
                                 onFailure={responseGoogle2}
@@ -205,9 +202,9 @@ export default function Login(props) {
                             />,
                             <FacebookLogin
                                 className="btn-login"
-                                // appID = "1049530302499866"
+                                appID = "1049530302499866"
                                 // appID = {process.env.REACT_APP_FB_APPID}
-                                appID = {config.FB_APPID}
+                                // appID = {config.FB_APPID}
                                 autoLoad={false}
                                 callback={responseFacebook}
                             />

@@ -217,6 +217,7 @@
 }
 
 .table {
+  margin-top: 15px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -224,7 +225,8 @@
 .grade {
   text-align: center;
   height: 25px;
-  max-width: 125px;
+  max-width: 150px;
+  min-width: 125px;
 }
 .studentId, .totalGrade{
   text-align: center;
@@ -240,12 +242,14 @@
 }
 .columns{
   border: 1px solid black;
-  max-width: 125px;
+  min-width: 125px;
+  max-width: 150px;
   color: white;
   background-color: #4285f4;
 }
 
 .download-btn {
+  margin-top: 15px;
  text-decoration: none;
  color:blue;
  /* background-color: blue; */
@@ -269,5 +273,6 @@ padding: 5px;
 }
 
 .download-btn, .uploadStudent{
+  margin-top: 10px;
   text-align: center;
 }

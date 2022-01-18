@@ -54,7 +54,6 @@ class AuthService {
                         message: result.message
                     }
                 }
-                
             })
     }
 

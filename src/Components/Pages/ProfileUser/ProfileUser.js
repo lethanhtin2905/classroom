@@ -28,6 +28,7 @@ export default function ProfileUser() {
     const [name, setName] = React.useState(currentUser?currentUser.name:'');
     const [email, setEmail] = React.useState(currentUser?currentUser.email:'');
     const [studentId, setStudentId] = React.useState(currentUser?currentUser.userID:'');
+    const [studentId_temp, setStudentId_temp] = React.useState(currentUser?currentUser.userID:'');
     const [classList, setClassList] = React.useState(currentUser?currentUser.classList:'');
     const [actClass, setActClass] = React.useState(null);
 
@@ -67,7 +68,7 @@ export default function ProfileUser() {
             body: JSON.stringify({
                 name: name,
                 email: email,
-                userID: studentId,
+                userID: studentId_temp,
                 classList: classList
             })
         };
@@ -79,10 +80,11 @@ export default function ProfileUser() {
                     AuthService.updateCurrentUser({
                         name: name,
                         email: email,
-                        userID: studentId,
+                        userID: studentId_temp,
                         classList: classList,
                     })
                     alert(result.message);
+                    setStudentId(studentId_temp);
                 } else {
                     setStudentId(currentUser.userID)
                     alert(result.message);
@@ -104,7 +106,8 @@ export default function ProfileUser() {
     }
 
     const onChangeStudentId = (e) => {
-        setStudentId(e.target.value)
+
+        setStudentId_temp(e.target.value)
     }
 
     const menuId = "primary-search-account-menu";
@@ -161,7 +164,7 @@ export default function ProfileUser() {
                             id="studentId"
                             label="Student ID"
                             type="studentId"
-                            value={studentId}
+                            value={studentId_temp}
                             fullWidth
                             variant="standard"
                             onChange={onChangeStudentId}
@@ -185,7 +188,6 @@ export default function ProfileUser() {
 
             </Menu>
         </div>
-
     );
 
     return (
