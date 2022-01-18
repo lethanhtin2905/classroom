@@ -101,8 +101,8 @@ export default function ClassDetail(props) {
                                 {currentClass.desc}
                             </div>
                             <div className="detail__wrapper2">
-                                <em className="detail__code">Link invite: </em>
-                                <span className="detail__id">http://localhost:3000/{currentClass._id}</span>
+                                <em className="detail__code">ClassID: </em>
+                                <span className="detail__id">{currentClass.classID}</span>
                             </div>
                             <div className="detail__wrapper2 detail__id">
                                 Create by: {createBy.name}

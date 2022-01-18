@@ -1,5 +1,5 @@
 {
-    "API_URL": "http://localhost:3030",
+    "API_URL": "https://classroom-api-18120595.herokuapp.com",
     "CARD_IMAGE": "https://p18cdn4static.sharpschool.com/UserFiles/Servers/Server_102145/Image/Our%20School/Academic%20Information/Grading%20Policy/1413463042370_wnp250.jpg",
     "GG_CLIENTID": "456562452797-8l37bdgcv5uuacglkgjpkobpvs6nelli.apps.googleusercontent.com",
     "FB_APPID": "1049530302499866"

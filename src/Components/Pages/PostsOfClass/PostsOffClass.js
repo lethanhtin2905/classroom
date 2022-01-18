@@ -1,4 +1,5 @@
 import "./PostsOfClass.css";
+import config from "../../../config.json";
 import React, { useState } from "react";
 import {Link} from 'react-router-dom';
 import AuthService from "../../../Auth/AuthService";
@@ -38,7 +39,7 @@ export default function PostsOfClass(props) {
             <div className="detail__status">
                 <div className="link-invite">
                     <p>Link invite:</p>
-                    <p className="detail__subText">{currentClass.classID}</p>
+                    <p className="detail__subText">{config.API_URL}/{currentClass._id}</p>
                 </div>
                 <div className="grade-structure">
                 <div className = "structure-content">

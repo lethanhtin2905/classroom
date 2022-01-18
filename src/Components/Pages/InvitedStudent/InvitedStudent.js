@@ -1,9 +1,10 @@
 import './InvitedStudent.css';
+import config from "../../../config.json";
 import * as React from 'react';
-import { useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom';
 import authHeader from '../../../Auth/AuthHeader';
 import AuthService from '../../../Auth/AuthService';
-import constant from '../../../Utils'
+import constant from '../../../Utils';
 import {
     Button,
     TextField,
@@ -92,9 +93,9 @@ export default function Invited(props) {
         >
             
             <Dialog open={open} onClose={handleClose}>
-                <DialogTitle>{role?"ADD TEACHER":"ADD STUDENT"}</DialogTitle>
+                <DialogTitle>{role?"INVITE TEACHER":"INVITE STUDENT"}</DialogTitle>
                 <DialogContent>
-                    <h4>Invitation link: http://localhost:3000/{currentClass._id}</h4>
+                    <h4>Invitation link: {config.API_URL}/{currentClass._id}</h4>
                     
                     <TextField
                         required={true}
@@ -109,7 +110,7 @@ export default function Invited(props) {
 
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleInvited}>{role?"Add Teacher":"Add Student"}</Button>
+                    <Button onClick={handleInvited}>{role?"Invite Teacher":"Invite Student"}</Button>
                     <Button onClick={handleClose}>Cancel</Button>
                 </DialogActions>
             </Dialog>
