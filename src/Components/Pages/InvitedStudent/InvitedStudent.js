@@ -95,7 +95,7 @@ export default function Invited(props) {
             <Dialog open={open} onClose={handleClose}>
                 <DialogTitle>{role?"INVITE TEACHER":"INVITE STUDENT"}</DialogTitle>
                 <DialogContent>
-                    <h4>Invitation link: {config.API_URL}/{currentClass._id}</h4>
+                    <h4>Invitation link: {config.BASE_URL}/{currentClass._id}</h4>
                     
                     <TextField
                         required={true}

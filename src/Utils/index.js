@@ -1,5 +1,6 @@
 const api = 'https://classroom-api-18120595.herokuapp.com';
 // const api = 'http://localhost:3030'
+// const api = 'https://midtern-18120595-api.herokuapp.com'
 
 // Class
 const allClassPath = '/classes';

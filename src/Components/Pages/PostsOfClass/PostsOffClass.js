@@ -39,7 +39,7 @@ export default function PostsOfClass(props) {
             <div className="detail__status">
                 <div className="link-invite">
                     <p>Link invite:</p>
-                    <p className="detail__subText">{config.API_URL}/{currentClass._id}</p>
+                    <p className="detail__subText">{config.BASE_URL}/{currentClass._id}</p>
                 </div>
                 <div className="grade-structure">
                 <div className = "structure-content">
